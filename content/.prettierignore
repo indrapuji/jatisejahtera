@@ -1,0 +1,15 @@
+**/node_modules
+.prettierrc.json
+CHANGELOG.md
+ISSUE_TEMPLATE.md
+jsconfig.json
+migration.md
+package.json
+public/index.html
+public/manifest.json
+REACT.md
+README.md
+src/scss/_fixes.scss
+src/scss/style.scss
+src/serviceWorker.js
+src/scss/_custom.scss
