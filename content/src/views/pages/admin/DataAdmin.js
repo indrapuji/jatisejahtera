@@ -29,7 +29,7 @@ const DataAdmin = () => {
         },
       });
       console.log(hideAdmin(data));
-      setDataAdmin(data);
+      setDataAdmin(hideAdmin(data));
     } catch (error) {
       console.log(error);
     }
