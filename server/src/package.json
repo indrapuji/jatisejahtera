@@ -4,7 +4,10 @@
   "description": "server for web and claim jatisejahtera",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx nodemon app.js",
+    "start:prod": "NODE_ENV=production npx nodemon app.js",
+    "deploy": "bash ./deploy-jati.sh"
   },
   "keywords": [
     "jatisejahtera"
