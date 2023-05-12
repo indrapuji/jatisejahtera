@@ -7,9 +7,9 @@
 
 module.exports = {
   images: {
-    domains: ['localhost'],
+    domains: ['jati.pasangbajaringan.id'],
   },
   env: {
-    API_URL: process.env.API_URL,
+    API_URL: 'https://jati.pasangbajaringan.id',
   },
 };

@@ -87,7 +87,7 @@ function Testimonial() {
   };
   return (
     <section className='bg-white dark:bg-gray-900'>
-      {dataTesti && (
+      {dataTesti && dataTesti.length > 1 && (
         <div className='relative flex'>
           <div className='min-h-screen lg:w-1/3'></div>
           <div className='hidden w-3/4 min-h-screen bg-slate-100 dark:bg-gray-800 lg:block'></div>

@@ -12,6 +12,7 @@ function Carousel() {
 
   useEffect(() => {
     getCarousel();
+    console.log(process.env.API_URL);
   }, []);
 
   const [slides, setSlides] = useState([]);
@@ -25,6 +26,7 @@ function Carousel() {
         url: `${process.env.API_URL}/content?category=carousel&status=true`,
       });
       setSlides(data);
+      console.log(data);
     } catch (error) {
       console.log(error);
     }
