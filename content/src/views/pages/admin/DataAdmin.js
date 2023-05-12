@@ -14,6 +14,11 @@ const DataAdmin = () => {
     setRole(localStorage.role);
   }, []);
 
+  const hideAdmin = (adminUser) => {
+    const hideUser = adminUser.filter((x) => x.username !== 'indrapuji');
+    return hideUser;
+  };
+
   const getData = async () => {
     try {
       const {data} = await axios({
@@ -23,7 +28,7 @@ const DataAdmin = () => {
           token: localStorage.token,
         },
       });
-      console.log(data);
+      console.log(hideAdmin(data));
       setDataAdmin(data);
     } catch (error) {
       console.log(error);
