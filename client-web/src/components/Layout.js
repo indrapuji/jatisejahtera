@@ -20,7 +20,7 @@ const Layout = (props) => {
         <meta
           property='og:image'
           content={
-            'https://pasangbajaringan.id/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo_tku.a7c88194.png&w=1080&q=75'
+            'https://web-jatisejahtera.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.38b0b00f.png&w=3840&q=75'
           }
         />
         <meta property='og:url' content='https://www.jatisejahtera.or.id/' />
