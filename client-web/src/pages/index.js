@@ -43,6 +43,7 @@ export default function Home() {
         url: `${process.env.API_URL}/content?category=galeri&status=true`,
       });
       setGaleriData(dataGaleri.data);
+      console.log(dataGaleri.data);
       const dataNews = await axios({
         method: 'GET',
         url: `${process.env.API_URL}/content?category=berita&status=true`,

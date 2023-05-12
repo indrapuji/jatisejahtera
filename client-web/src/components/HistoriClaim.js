@@ -58,6 +58,9 @@ function HistoriClaim({data}) {
                   Lampiran
                 </th>
                 <th scope='col' className='px-6 py-3'>
+                  Nominal
+                </th>
+                <th scope='col' className='px-6 py-3'>
                   Keterangan
                 </th>
               </tr>
@@ -94,6 +97,7 @@ function HistoriClaim({data}) {
                       <td className='px-6 py-4'></td>
                     )}
 
+                    <td className='px-6 py-4'>{item.nominal}</td>
                     <td className='px-6 py-4'>{item.pesan}</td>
                   </tr>
                 ))}

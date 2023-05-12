@@ -64,9 +64,6 @@ function Kacamata() {
   };
 
   const onFormSubmit = async (e) => {
-    e.preventDefault();
-    console.log(formData);
-
     try {
       e.preventDefault();
       setLoading(true);

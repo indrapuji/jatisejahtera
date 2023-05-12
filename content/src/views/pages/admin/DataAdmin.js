@@ -12,6 +12,7 @@ const DataAdmin = () => {
   useEffect(() => {
     getData();
     setRole(localStorage.role);
+    // eslint-disable-next-line
   }, []);
 
   const hideAdmin = (adminUser) => {
