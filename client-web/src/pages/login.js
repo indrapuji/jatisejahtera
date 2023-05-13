@@ -62,6 +62,18 @@ function login() {
     }
   };
 
+  const checkUser = async (userNip) => {
+    try {
+      const {data} = await axios({
+        method: 'POST',
+        url: `${process.env.API_URL}/user/check-user`,
+      });
+      console.log(data);
+    } catch (error) {
+      newAlert({status: 'error', message: error.response.data.msg});
+    }
+  };
+
   const handleAdd = async () => {
     try {
       const {value: dataNIP} = await Swal.fire({
@@ -87,7 +99,8 @@ function login() {
       });
 
       if (data.status === 200) {
-        router.push(`/register/${encrypt(dataNIP)}`);
+        // router.push(`/register/${encrypt(dataNIP)}`);
+        await checkUser(dataNIP);
       } else {
         newAlert({status: 'error', message: 'NIP tidak terdaftar / NIP salah'});
       }
