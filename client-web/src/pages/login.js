@@ -76,10 +76,11 @@ function login() {
       }
       console.log(data);
     } catch (error) {
-      if (error.response.data.msg === 'NIP not found') {
+      const {msg} = error.response.data;
+      if (msg === 'NIP not found') {
         router.push(`/register/${encrypt(userNip)}`);
       } else {
-        newAlert({status: 'error', message: error.response.data.msg});
+        newAlert({status: 'error', message: msg});
       }
     }
   };
