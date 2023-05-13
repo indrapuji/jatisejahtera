@@ -75,7 +75,7 @@ function Register() {
       }
       await axios({
         method: 'POST',
-        url: process.env.API_URL + '/user/user-register',
+        url: process.env.API_URL + '/user/register',
         data: formData,
       });
       setLoading(false);
