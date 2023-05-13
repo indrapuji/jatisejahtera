@@ -44,7 +44,7 @@ class UserControllers {
     }
   };
 
-  static userRegister = async (req, res, next) => {
+  static userStaffRegister = async (req, res, next) => {
     try {
       const {name, nip, email, username, password, role, regional} = req.body;
       if (!name || !nip || !email || !username || !password || !role) {
@@ -61,6 +61,34 @@ class UserControllers {
         option.regional = req.UserData.regional;
       }
 
+      await User.create(option);
+      res.status(201).json({
+        name,
+        nip,
+        email,
+        username,
+        password,
+        role,
+        regional,
+        msg: 'Member Created',
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+  static userRegister = async (req, res, next) => {
+    try {
+      const {name, nip, email, username, password, role, regional} = req.body;
+      if (!name || !nip || !email || !username || !password || !role) {
+        throw createErrors(400, 'Input all require field');
+      }
+      const userValidation = await User.findOne({where: {username}});
+      if (userValidation) throw createErrors(400, 'Username already exist');
+
+      const nipValidation = await User.findOne({where: {nip}});
+      if (nipValidation) throw createErrors(400, 'NIP already exist');
+
+      let option = {name, nip, email, username, password, role, regional, status: false};
       await User.create(option);
       res.status(201).json({
         name,

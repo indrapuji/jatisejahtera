@@ -5,6 +5,8 @@ import Image from 'next/image';
 import axios from 'axios';
 import newAlert from '@components/newAlert';
 import {useRouter} from 'next/router';
+import Swal from 'sweetalert2';
+import {encrypt} from '@utilities/RandomLink';
 
 function login() {
   const router = useRouter();
@@ -57,6 +59,40 @@ function login() {
       setPass('text');
     } else {
       setPass('password');
+    }
+  };
+
+  const handleAdd = async () => {
+    try {
+      const {value: dataNIP} = await Swal.fire({
+        title: 'NIP',
+        input: 'text',
+        // inputLabel: "Masukkan NIP",
+        showCancelButton: true,
+        inputValidator: (value) => {
+          if (!value) {
+            return 'You need to write something!';
+          }
+        },
+      });
+      const {data} = await axios({
+        method: 'POST',
+        url: `https://ws.ykp3js.org/cek`,
+        data: {
+          nip: dataNIP,
+          tokenkey:
+            'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyaWQiOiJZS1AzSlNXZWIiLCJ0aW1lc3RhbXAiOjE2NjIyNzM1MDB9.7W1lr29HTvAQDYR1FUIRG3mrsyGqTVAbQe9daDeUz8k',
+          act: 'klaim',
+        },
+      });
+
+      if (data.status === 200) {
+        router.push(`/register/${encrypt(dataNIP)}`);
+      } else {
+        newAlert({status: 'error', message: 'NIP tidak terdaftar / NIP salah'});
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -146,7 +182,10 @@ function login() {
 
                 <p className='mt-6 text-sm text-center text-gray-400'>
                   Belum punya akun?{' '}
-                  <a href='#' className='text-blue-500 focus:outline-none focus:underline hover:underline'>
+                  <a
+                    className='text-blue-500 focus:outline-none focus:underline hover:underline'
+                    onClick={() => handleAdd()}
+                  >
                     Daftar
                   </a>
                   .
