@@ -73,12 +73,14 @@ function login() {
       });
       if (data.msg === 'User already exist') {
         newAlert({status: 'error', message: 'Kamu sudah terdaftar, silahkan login'});
-      } else {
-        router.push(`/register/${encrypt(userNip)}`);
       }
       console.log(data);
     } catch (error) {
-      newAlert({status: 'error', message: error.response.data.msg});
+      if (error.response.data.msg === 'NIP not found') {
+        router.push(`/register/${encrypt(userNip)}`);
+      } else {
+        newAlert({status: 'error', message: error.response.data.msg});
+      }
     }
   };
 
