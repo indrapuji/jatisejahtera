@@ -78,7 +78,7 @@ class UserControllers {
   };
   static userRegister = async (req, res, next) => {
     try {
-      const {name, nip, email, username, password, role, regional} = req.body;
+      const {name, nip, email, username, password, regional} = req.body;
       if (!name || !nip || !email || !username || !password || !role) {
         throw createErrors(400, 'Input all require field');
       }
@@ -88,7 +88,7 @@ class UserControllers {
       const nipValidation = await User.findOne({where: {nip}});
       if (nipValidation) throw createErrors(400, 'NIP already exist');
 
-      let option = {name, nip, email, username, password, role, regional, status: false};
+      let option = {name, nip, email, username, password, role: 'member', regional, status: false};
       await User.create(option);
       res.status(201).json({
         name,

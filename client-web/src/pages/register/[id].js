@@ -17,7 +17,6 @@ function Register() {
     email: '',
     username: '',
     password: '',
-    role: 'member',
     regional: '',
   });
 
@@ -60,16 +59,8 @@ function Register() {
       e.preventDefault();
       console.log(formData);
       setLoading(true);
-      const {name, nip, email, username, password, role, regional} = formData;
-      if (
-        name === '' ||
-        nip === '' ||
-        email === '' ||
-        username === '' ||
-        password === '' ||
-        role === '' ||
-        regional === ''
-      ) {
+      const {name, nip, email, username, password, regional} = formData;
+      if (name === '' || nip === '' || email === '' || username === '' || password === '' || regional === '') {
         newAlert({status: 'error', message: 'Isi Semua Form'});
         return;
       }
