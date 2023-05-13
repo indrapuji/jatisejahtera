@@ -67,6 +67,9 @@ function login() {
       const {data} = await axios({
         method: 'POST',
         url: `${process.env.API_URL}/user/check-user`,
+        data: {
+          nip: userNip,
+        },
       });
       console.log(data);
     } catch (error) {
