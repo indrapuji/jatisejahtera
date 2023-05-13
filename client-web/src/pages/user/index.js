@@ -48,7 +48,7 @@ function index() {
           token: localStorage.token,
         },
       });
-      // console.log(data);
+      console.log(data);
       // console.log(data.Datum);
       // console.log(data.Claims);
       setProfileData(data);
@@ -116,25 +116,25 @@ function index() {
         </div>
 
         {/* card Pendukung */}
-        {dataPeserta && (
-          <div className='grid gap-10 lg:grid-cols-3 '>
-            {/* side card */}
-            <div className='w-full px-8 py-4 mt-10 bg-white rounded-lg dark:bg-gray-800 lg:my-12 '>
-              {sideBarText.map((item, index) => (
-                <div key={index}>
-                  <button type='button' className={item.class} onClick={item.click}>
-                    {item.title}
-                  </button>
-                </div>
-              ))}
-            </div>
-
-            {active === 'detail' && <DetailProfil profileData={profileData} dataPeserta={dataPeserta} />}
-            {active === 'pendukung' && <DetailPendukung dataPeserta={dataPeserta} />}
-            {active === 'histori' && <HistoriClaim data={claimData} />}
-            {active === 'setting' && <SettingAkun profileData={profileData} />}
+        {/* {profileData && ( */}
+        <div className='grid gap-10 lg:grid-cols-3 '>
+          {/* side card */}
+          <div className='w-full px-8 py-4 mt-10 bg-white rounded-lg dark:bg-gray-800 lg:my-12 '>
+            {sideBarText.map((item, index) => (
+              <div key={index}>
+                <button type='button' className={item.class} onClick={item.click}>
+                  {item.title}
+                </button>
+              </div>
+            ))}
           </div>
-        )}
+
+          {active === 'detail' && <DetailProfil profileData={profileData} dataPeserta={dataPeserta} />}
+          {active === 'pendukung' && <DetailPendukung dataPeserta={dataPeserta} status={profileData.status} />}
+          {active === 'histori' && <HistoriClaim data={claimData} />}
+          {active === 'setting' && <SettingAkun profileData={profileData} />}
+        </div>
+        {/* )} */}
       </div>
       <Footer />
     </Layout>

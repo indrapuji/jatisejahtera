@@ -1,21 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import InputComponent from './InputComponent';
 import formatDate from '@utilities/FormatDate';
 
-function DetailPendukung({dataPeserta}) {
+function DetailPendukung({dataPeserta, status}) {
   const [updateData, setUpdateData] = useState(true);
-  console.log(dataPeserta);
 
-  useEffect(() => {
-    if (dataPeserta.nama_pasangan) {
-      setUpdateData(false);
-    } else {
-      setUpdateData(true);
-    }
-  }, []);
   return (
     <div className='col-span-2 w-full px-8 py-4 mt-10 bg-white rounded-lg shadow-md dark:bg-gray-800 lg:my-12 '>
-      {updateData ? (
+      {!status ? (
         <div className='max-w-xl md:mx-auto text-center sm:text-center lg:max-w-2xl'>
           <h2 className='max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto'>
             Anda belum melakukan update
