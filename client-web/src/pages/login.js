@@ -71,6 +71,11 @@ function login() {
           nip: userNip,
         },
       });
+      if (data.msg === 'User already exist') {
+        newAlert({status: 'error', message: 'Kamu sudah terdaftar, silahkan login'});
+      } else {
+        router.push(`/register/${encrypt(userNip)}`);
+      }
       console.log(data);
     } catch (error) {
       newAlert({status: 'error', message: error.response.data.msg});
