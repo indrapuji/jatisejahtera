@@ -18,8 +18,35 @@ function Update() {
   const [loading, setLoading] = useState(false);
   const [profileData, setProfileData] = useState();
   const [formData, setFormData] = useState({
-    regional: '',
+    tgl_lahir: '',
+    no_ktp: '',
+    no_bpjs: '',
+    nama_bank: '',
+    no_rekening: '',
+    satuan_kerja: '',
     cabang: '',
+    golongan_pangkat: '',
+    no_telp: '',
+    alamat: '',
+    kelurahan: '',
+    kecamatan: '',
+    kota: '',
+    kodepos: '',
+    provinsi: '',
+    nama_pasangan: '',
+    tgl_lahir_pasangan: '',
+    no_telp_pasangan: '',
+    no_ktp_pasangan: '',
+    no_bpjs_pasangan: '',
+    nama_bank_pasangan: '',
+    no_rekening_pasangan: '',
+    nama_anak: '',
+    tgl_lahir_anak: '',
+    no_tlp_anak: '',
+    no_ktp_anak: '',
+    no_bpjs_anak: '',
+    nama_bank_anak: '',
+    no_rekening_anak: '',
   });
 
   const [umurPeserta, setUmurPeserta] = useState('');
@@ -45,11 +72,8 @@ function Update() {
         },
       });
       console.log(data);
-      // console.log(data.Datum);
-      // console.log(data.Claims);
+      setFormData({...formData, satuan_kerja: data.regional});
       setProfileData(data);
-      //   setDataPeserta(data.Datum);
-      //   setClaimData(data.Claims);
     } catch (error) {
       console.log(error);
     }
@@ -85,8 +109,26 @@ function Update() {
   };
 
   const onFormSubmit = async (e) => {
-    e.preventDefault();
-    console.log('ini bisa');
+    try {
+      e.preventDefault();
+      setLoading(true);
+      await axios({
+        method: 'POST',
+        url: `${process.env.API_URL}/data/record`,
+        data: formData,
+        headers: {
+          token: localStorage.token,
+        },
+      });
+      newAlert({status: 'success', message: 'Update data berhasil'});
+      localStorage.setItem('status', 'true');
+      router.push('/user');
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      newAlert({status: 'error', message: err.response.data.msg});
+      setLoading(false);
+    }
   };
   return (
     <Layout pageTitle={'KLAIM || JATISEJAHTERA'}>
@@ -138,37 +180,39 @@ function Update() {
             </div>
             <div className='lg:grid lg:gap-10 lg:grid-cols-2'>
               <div className='-mx-2 md:items-center md:flex mt-3'>
-                <InputComponent title={'Nomor KTP'} onChange={onFormChange} />
+                <InputComponent title={'Nomor KTP'} name='no_ktp' value={formData.no_ktp} onChange={onFormChange} />
               </div>
               <div className='-mx-2 md:items-center md:flex mt-3'>
-                <InputComponent title={'Nomor BPJS'} onChange={onFormChange} />
+                <InputComponent title={'Nomor BPJS'} name='no_bpjs' value={formData.no_bpjs} onChange={onFormChange} />
               </div>
             </div>
             <div className='lg:grid lg:gap-10 lg:grid-cols-3'>
               <div className='-mx-2 md:items-center md:flex mt-3'>
-                <InputComponent title={'Nama Bank'} onChange={onFormChange} />
+                <InputComponent
+                  title={'Nama Bank'}
+                  name='nama_bank'
+                  value={formData.nama_bank}
+                  onChange={onFormChange}
+                />
               </div>
               <div className='col-span-2 -mx-2 md:items-center md:flex mt-3'>
-                <InputComponent title={'Nomor Rekening'} onChange={onFormChange} />
+                <InputComponent
+                  title={'Nomor Rekening'}
+                  name='no_rekening'
+                  value={formData.no_rekening}
+                  onChange={onFormChange}
+                />
               </div>
             </div>
             <div className='lg:grid lg:gap-10 lg:grid-cols-4'>
               <div className='-mx-2 md:items-center md:flex mt-3'>
-                <div className='flex-1 px-2'>
-                  <label className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>Regional</label>
-                  <select
-                    className='bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-                    name='regional'
-                    value={formData.regional}
-                    onChange={onFormChange}
-                  >
-                    <option value=''>Pilih Regional</option>
-                    <option value='kantor-pusat'>Kantor Pusat</option>
-                    <option value='jawa-barat'>Jawa Barat dan Banten</option>
-                    <option value='jawa-tengah'>Jawa Tengah</option>
-                    <option value='jawa-timur'>Jawa Timur</option>
-                  </select>
-                </div>
+                <InputComponent
+                  title={'Satuan Kerja'}
+                  name='satuan_kerja'
+                  onChange={onFormChange}
+                  value={formData.satuan_kerja}
+                  disabledInput
+                />
               </div>
               <div className='col-span-2 -mx-2 md:items-center md:flex mt-3'>
                 <div className='flex-1 px-2'>
@@ -176,28 +220,29 @@ function Update() {
                   <select
                     className='bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                     name='cabang'
+                    value={formData.cabang}
                     onChange={onFormChange}
                   >
                     <option value=''>Pilih KPH</option>
-                    {formData.regional === 'kantor-pusat' &&
+                    {formData?.satuan_kerja === 'kantor-pusat' &&
                       KAPUS.map((item, index) => (
                         <option key={index} value={item.value}>
                           {item.labelKey}
                         </option>
                       ))}
-                    {formData.regional === 'jawa-barat' &&
+                    {formData?.satuan_kerja === 'jawa-barat' &&
                       JABAR.map((item, index) => (
                         <option key={index} value={item.value}>
                           {item.labelKey}
                         </option>
                       ))}
-                    {formData.regional === 'jawa-tengah' &&
+                    {formData?.satuan_kerja === 'jawa-tengah' &&
                       JATENG.map((item, index) => (
                         <option key={index} value={item.value}>
                           {item.labelKey}
                         </option>
                       ))}
-                    {formData.regional === 'jawa-timur' &&
+                    {formData?.satuan_kerja === 'jawa-timur' &&
                       JATIM.map((item, index) => (
                         <option key={index} value={item.value}>
                           {item.labelKey}
@@ -213,8 +258,8 @@ function Update() {
                   </label>
                   <select
                     className='bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-                    name='regional'
-                    value={formData.regional}
+                    name='golongan_pangkat'
+                    value={formData.golongan_pangkat}
                     onChange={onFormChange}
                   >
                     <option value=''>Pilih golongan</option>
@@ -227,7 +272,7 @@ function Update() {
               </div>
             </div>
             <div className='-mx-2 md:items-center md:flex mt-3'>
-              <InputComponent title={'Nomor Telepon'} onChange={onFormChange} />
+              <InputComponent title={'Nomor Telepon'} name='no_telp' value={formData.no_telp} onChange={onFormChange} />
             </div>
             <div className='-mx-2 md:items-center md:flex mt-3'>
               <div className='flex-1 px-2'>
@@ -236,27 +281,39 @@ function Update() {
                   rows='4'
                   placeholder='Alamat...'
                   className='bg-white-200 block w-full px-5 py-1.5 mt-2 text-gray-700 placeholder-gray-400 border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40'
+                  name='alamat'
+                  value={formData.alamat}
                   onChange={onFormChange}
                 />
               </div>
             </div>
             <div className='lg:grid lg:gap-10 lg:grid-cols-2'>
               <div className='-mx-2 md:items-center md:flex mt-3'>
-                <InputComponent title={'Kecamatan'} onChange={onFormChange} />
+                <InputComponent
+                  title={'Kecamatan'}
+                  name='kecamatan'
+                  value={formData.kecamatan}
+                  onChange={onFormChange}
+                />
               </div>
               <div className='-mx-2 md:items-center md:flex mt-3'>
-                <InputComponent title={'Kelurahan'} onChange={onFormChange} />
+                <InputComponent
+                  title={'Kelurahan'}
+                  name='kelurahan'
+                  value={formData.kelurahan}
+                  onChange={onFormChange}
+                />
               </div>
             </div>
             <div className='lg:grid lg:gap-10 lg:grid-cols-3'>
               <div className='-mx-2 md:items-center md:flex mt-3'>
-                <InputComponent title={'Kota / Kabupaten'} onChange={onFormChange} />
+                <InputComponent title={'Kota / Kabupaten'} name='kota' value={formData.kota} onChange={onFormChange} />
               </div>
               <div className='-mx-2 md:items-center md:flex mt-3'>
-                <InputComponent title={'Kodepos'} onChange={onFormChange} />
+                <InputComponent title={'Kodepos'} name='kodepos' value={formData.kodepos} onChange={onFormChange} />
               </div>
               <div className='-mx-2 md:items-center md:flex mt-3'>
-                <InputComponent title={'Provinsi'} onChange={onFormChange} />
+                <InputComponent title={'Provinsi'} name='provinsi' value={formData.provinsi} onChange={onFormChange} />
               </div>
             </div>
             <div>
@@ -265,7 +322,12 @@ function Update() {
               </p>
             </div>
             <div className='-mx-2 md:items-center md:flex'>
-              <InputComponent title={'Nama Istri / Suami'} onChange={onFormChange} />
+              <InputComponent
+                title={'Nama Istri / Suami'}
+                name='nama_pasangan'
+                value={formData.nama_pasangan}
+                onChange={onFormChange}
+              />
             </div>
             <div className='lg:grid lg:gap-10 lg:grid-cols-3'>
               <div className='col-span-2 -mx-2 md:items-center md:flex mt-3'>
@@ -282,22 +344,47 @@ function Update() {
               </div>
             </div>
             <div className='-mx-2 md:items-center md:flex mt-3'>
-              <InputComponent title={'Nomor Telepon Istri / Suami'} onChange={onFormChange} />
+              <InputComponent
+                title={'Nomor Telepon Istri / Suami'}
+                name='no_telp_pasangan'
+                value={formData.no_telp_pasangan}
+                onChange={onFormChange}
+              />
             </div>
             <div className='lg:grid lg:gap-10 lg:grid-cols-2'>
               <div className='-mx-2 md:items-center md:flex mt-3'>
-                <InputComponent title={'Nomor KTP Istri / Suami'} onChange={onFormChange} />
+                <InputComponent
+                  title={'Nomor KTP Istri / Suami'}
+                  name='no_ktp_pasangan'
+                  value={formData.no_ktp_pasangan}
+                  onChange={onFormChange}
+                />
               </div>
               <div className='-mx-2 md:items-center md:flex mt-3'>
-                <InputComponent title={'Nomor BPJS Istri / Suami'} onChange={onFormChange} />
+                <InputComponent
+                  title={'Nomor BPJS Istri / Suami'}
+                  name='no_bpjs_pasangan'
+                  value={formData.no_bpjs_pasangan}
+                  onChange={onFormChange}
+                />
               </div>
             </div>
             <div className='lg:grid lg:gap-10 lg:grid-cols-3'>
               <div className='-mx-2 md:items-center md:flex mt-3'>
-                <InputComponent title={'Nama Bank Istri / Suami'} onChange={onFormChange} />
+                <InputComponent
+                  title={'Nama Bank Istri / Suami'}
+                  name='nama_bank_pasangan'
+                  value={formData.nama_bank_pasangan}
+                  onChange={onFormChange}
+                />
               </div>
               <div className='col-span-2 -mx-2 md:items-center md:flex mt-3'>
-                <InputComponent title={'Nomor Rekening Istri / Suami'} onChange={onFormChange} />
+                <InputComponent
+                  title={'Nomor Rekening Istri / Suami'}
+                  name='no_rekening_pasangan'
+                  value={formData.no_rekening_pasangan}
+                  onChange={onFormChange}
+                />
               </div>
             </div>
             <div>
@@ -306,7 +393,7 @@ function Update() {
               </p>
             </div>
             <div className='-mx-2 md:items-center md:flex'>
-              <InputComponent title={'Nama Anak'} onChange={onFormChange} />
+              <InputComponent title={'Nama Anak'} name='nama_anak' value={formData.nama_anak} onChange={onFormChange} />
             </div>
             <div className='lg:grid lg:gap-10 lg:grid-cols-3'>
               <div className='col-span-2 -mx-2 md:items-center md:flex mt-3'>
@@ -323,22 +410,47 @@ function Update() {
               </div>
             </div>
             <div className='-mx-2 md:items-center md:flex mt-3'>
-              <InputComponent title={'Nomor Telepon Anak'} onChange={onFormChange} />
+              <InputComponent
+                title={'Nomor Telepon Anak'}
+                name='no_tlp_anak'
+                value={formData.no_tlp_anak}
+                onChange={onFormChange}
+              />
             </div>
             <div className='lg:grid lg:gap-10 lg:grid-cols-2'>
               <div className='-mx-2 md:items-center md:flex mt-3'>
-                <InputComponent title={'Nomor KTP Anak'} onChange={onFormChange} />
+                <InputComponent
+                  title={'Nomor KTP Anak'}
+                  name='no_ktp_anak'
+                  value={formData.no_ktp_anak}
+                  onChange={onFormChange}
+                />
               </div>
               <div className='-mx-2 md:items-center md:flex mt-3'>
-                <InputComponent title={'Nomor BPJS Anak'} onChange={onFormChange} />
+                <InputComponent
+                  title={'Nomor BPJS Anak'}
+                  name='no_bpjs_anak'
+                  value={formData.no_bpjs_anak}
+                  onChange={onFormChange}
+                />
               </div>
             </div>
             <div className='lg:grid lg:gap-10 lg:grid-cols-3'>
               <div className='-mx-2 md:items-center md:flex mt-3'>
-                <InputComponent title={'Nama Bank Anak'} onChange={onFormChange} />
+                <InputComponent
+                  title={'Nama Bank Anak'}
+                  name='nama_bank_anak'
+                  value={formData.nama_bank_anak}
+                  onChange={onFormChange}
+                />
               </div>
               <div className='col-span-2 -mx-2 md:items-center md:flex mt-3'>
-                <InputComponent title={'Nomor Rekening Anak'} onChange={onFormChange} />
+                <InputComponent
+                  title={'Nomor Rekening Anak'}
+                  name='no_rekening_anak'
+                  value={formData.no_rekening_anak}
+                  onChange={onFormChange}
+                />
               </div>
             </div>
 

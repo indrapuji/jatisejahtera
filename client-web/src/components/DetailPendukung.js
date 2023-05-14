@@ -74,7 +74,7 @@ function DetailPendukung({dataPeserta, status}) {
               />
             </div>
             <div className='-mx-2 md:items-center mt-3'>
-              <InputComponent title={'No Telp Anak'} value={dataPeserta.no_telp_anak} disabledInput={true} />
+              <InputComponent title={'No Telp Anak'} value={dataPeserta?.no_tlp_anak} disabledInput={true} />
             </div>
             <div className='-mx-2 md:items-center mt-3'>
               <InputComponent title={'No KTP Anak'} value={dataPeserta.no_ktp_anak} disabledInput={true} />
