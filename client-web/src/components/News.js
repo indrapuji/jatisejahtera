@@ -68,8 +68,8 @@ function News({data}) {
                         <h2 className='tracking-widest text-xs title-font font-medium text-gray-400 mb-1'>
                           INFORMASI YAYASAN
                         </h2>
-                        <h1 className='title-font text-lg font-medium text-gray-900 mb-3'>{item.title}</h1>
-                        <p className='leading-relaxed mb-3'>{item.desc}</p>
+                        <h1 className='title-font text-lg font-medium text-gray-900 mb-3 line-clamp-2'>{item.title}</h1>
+                        <p className='leading-relaxed mb-3 line-clamp-3'>{item.desc}</p>
                         {/* <div className='flex items-center flex-wrap '>
                           <a className='text-indigo-500 inline-flex items-center md:mb-2 lg:mb-0 cursor-pointer'>
                             Baca Selengkapnya

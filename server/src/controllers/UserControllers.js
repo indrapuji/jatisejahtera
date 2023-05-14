@@ -129,6 +129,7 @@ class UserControllers {
         accessToken: accessToken,
         role: userValidation.role,
         username: userValidation.username,
+        status: userValidation.status,
       });
     } catch (error) {
       next(error);

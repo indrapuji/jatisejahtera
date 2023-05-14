@@ -61,8 +61,11 @@ function DetailProfil({profileData, dataPeserta}) {
             <textarea
               disabled={true}
               rows='4'
+              placeholder='Alamat...'
               value={dataPeserta && dataPeserta?.alamat}
-              className='bg-gray-200 block w-full px-5 py-1.5 mt-2 text-gray-700 placeholder-gray-400 border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40'
+              className={`bg-gray-200 block w-full px-5 py-1.5 mt-2 text-gray-700 placeholder-gray-400 border ${
+                dataPeserta?.alamat ? 'border-gray-200' : 'border-red-500'
+              } rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40`}
             />
           </div>
         </div>

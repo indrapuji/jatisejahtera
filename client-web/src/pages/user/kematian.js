@@ -98,13 +98,13 @@ function Kematian() {
     <Layout pageTitle={'KLAIM || JATISEJAHTERA'}>
       <Navigation />
       <div className='px-4 py-4 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-10'>
-        <div className='relative pb-20'>
+        {/* <div className='relative pb-20'>
           <img
             className='object-cover w-full h-56 rounded-lg shadow-lg sm:h-96'
             src={'https://i.ibb.co/p0QFFqs/car-1.jpg'}
             alt='nature'
           />
-        </div>
+        </div> */}
 
         <div className='grid gap-10 lg:grid-cols-3 '>
           {/* side card */}
@@ -217,10 +217,10 @@ function Kematian() {
                 />
               </div>
               <div className='mt-6'>
-                <label className='block text-sm text-gray-500 dark:text-gray-300'>All in One</label>
+                <label className='block text-sm text-green-600 dark:text-green-600'>All in One</label>
                 <input
                   type='file'
-                  className='block w-full px-3 py-2 mt-2 text-sm text-gray-600 bg-white border border-gray-200 rounded-lg file:bg-gray-200 file:text-gray-700 file:text-sm file:px-4 file:py-1 file:border-none file:rounded-full dark:file:bg-gray-800 dark:file:text-gray-200 dark:text-gray-300 placeholder-gray-400/70 dark:placeholder-gray-500 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:focus:border-blue-300'
+                  className='block w-full px-3 py-2 mt-2 text-sm text-gray-600 bg-white border border-green-600 rounded-lg file:bg-gray-200 file:text-gray-700 file:text-sm file:px-4 file:py-1 file:border-none file:rounded-full dark:file:bg-gray-800 dark:file:text-gray-200 dark:text-gray-300 placeholder-gray-400/70 dark:placeholder-gray-500 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:focus:border-blue-300'
                   name='all_in_one'
                   onChange={onFormChange}
                 />

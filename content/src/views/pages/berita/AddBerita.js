@@ -70,6 +70,7 @@ const AddKesehatan = () => {
       newAlert({status: 'success', message: 'Berhasil'});
       history.push('/berita');
     } catch (error) {
+      console.log(error.response);
       const {msg} = error.response.data;
       newAlert({status: 'error', message: msg});
       console.log(error.response.data);
