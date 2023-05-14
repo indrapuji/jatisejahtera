@@ -9,10 +9,8 @@ function UpdateNotif() {
     if (localStorage.token) {
       setNotifOff(localStorage.status === 'false' ? false : true);
     } else {
-      setNotifOff(localStorage.status === 'false' ? false : true);
+      setNotifOff(true);
     }
-
-    console.log(router);
   }, []);
   const notification = () => {
     setNotifOff(true);

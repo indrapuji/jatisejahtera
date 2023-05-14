@@ -12,47 +12,43 @@ function DetailProfil({profileData, dataPeserta}) {
       </div>
       <div className='lg:pr-10 flex flex-col'>
         <div className='-mx-2 md:items-center md:flex'>
-          <InputComponent title={'Nama'} valueInput={profileData?.name} disabledInput={true} />
+          <InputComponent title={'Nama'} value={profileData?.name} disabledInput={true} />
         </div>
         <div className='-mx-2 md:items-center md:flex mt-3'>
-          <InputComponent title={'Nomor Induk'} valueInput={profileData?.nip} disabledInput={true} />
+          <InputComponent title={'Nomor Induk'} value={profileData?.nip} disabledInput={true} />
         </div>
         <div className='-mx-2 md:items-center md:flex mt-3'>
-          <InputComponent title={'Email'} valueInput={profileData?.email} disabledInput={true} />
+          <InputComponent title={'Email'} value={profileData?.email} disabledInput={true} />
         </div>
         <div className='-mx-2 md:items-center md:flex mt-3'>
-          <InputComponent title={'No Telp'} valueInput={dataPeserta?.no_telp} disabledInput={true} />
+          <InputComponent title={'No Telp'} value={dataPeserta?.no_telp} disabledInput={true} />
         </div>
         <div className='-mx-2 md:items-center md:flex mt-3'>
-          <InputComponent
-            title={'Tanggal Lahir'}
-            valueInput={formatDate(dataPeserta?.tgl_lahir)}
-            disabledInput={true}
-          />
+          <InputComponent title={'Tanggal Lahir'} value={formatDate(dataPeserta?.tgl_lahir)} disabledInput={true} />
         </div>
         <div className='-mx-2 md:items-center mt-3'>
-          <InputComponent title={'No KTP'} valueInput={dataPeserta?.no_ktp} disabledInput={true} />
+          <InputComponent title={'No KTP'} value={dataPeserta?.no_ktp} disabledInput={true} />
         </div>
         <div className='-mx-2 md:items-center mt-3'>
-          <InputComponent title={'No BPJS'} valueInput={dataPeserta?.no_bpjs} disabledInput={true} />
+          <InputComponent title={'No BPJS'} value={dataPeserta?.no_bpjs} disabledInput={true} />
         </div>
         <div className='lg:grid lg:gap-10 lg:grid-cols-3'>
           <div className='-mx-2 md:items-center md:flex mt-3'>
-            <InputComponent title={'Nama Bank'} valueInput={dataPeserta?.nama_bank} disabledInput={true} />
+            <InputComponent title={'Nama Bank'} value={dataPeserta?.nama_bank} disabledInput={true} />
           </div>
           <div className='col-span-2 -mx-2 md:items-center md:flex mt-3'>
-            <InputComponent title={'No Rekening'} valueInput={dataPeserta?.no_rekening} disabledInput={true} />
+            <InputComponent title={'No Rekening'} value={dataPeserta?.no_rekening} disabledInput={true} />
           </div>
         </div>
         <div className='lg:grid lg:gap-10 lg:grid-cols-3'>
           <div className='-mx-2 md:items-center md:flex mt-3'>
-            <InputComponent title={'Satuan Kerja'} valueInput={dataPeserta?.satuan_kerja} disabledInput={true} />
+            <InputComponent title={'Satuan Kerja'} value={dataPeserta?.satuan_kerja} disabledInput={true} />
           </div>
           <div className='-mx-2 md:items-center md:flex mt-3'>
-            <InputComponent title={'KPH'} valueInput={dataPeserta?.cabang} disabledInput={true} />
+            <InputComponent title={'KPH'} value={dataPeserta?.cabang} disabledInput={true} />
           </div>
           <div className='-mx-2 md:items-center md:flex mt-3'>
-            <InputComponent title={'Golongan'} valueInput={dataPeserta?.golongan_pangkat} disabledInput={true} />
+            <InputComponent title={'Golongan'} value={dataPeserta?.golongan_pangkat} disabledInput={true} />
           </div>
         </div>
         <div className='-mx-2 md:items-center md:flex mt-3'>
@@ -63,29 +59,27 @@ function DetailProfil({profileData, dataPeserta}) {
               rows='4'
               placeholder='Alamat...'
               value={dataPeserta && dataPeserta?.alamat}
-              className={`bg-gray-200 block w-full px-5 py-1.5 mt-2 text-gray-700 placeholder-gray-400 border ${
-                dataPeserta?.alamat ? 'border-gray-200' : 'border-red-500'
-              } rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40`}
+              className={`bg-gray-200 block w-full px-5 py-1.5 mt-2 text-gray-700 placeholder-gray-400 border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40`}
             />
           </div>
         </div>
         <div className='lg:grid lg:gap-10 lg:grid-cols-2'>
           <div className='-mx-2 md:items-center md:flex mt-3'>
-            <InputComponent title={'Kecamatan'} valueInput={dataPeserta?.kecamatan} disabledInput={true} />
+            <InputComponent title={'Kecamatan'} value={dataPeserta?.kecamatan} disabledInput={true} />
           </div>
           <div className='-mx-2 md:items-center md:flex mt-3'>
-            <InputComponent title={'Kelurahan'} valueInput={dataPeserta?.kelurahan} disabledInput={true} />
+            <InputComponent title={'Kelurahan'} value={dataPeserta?.kelurahan} disabledInput={true} />
           </div>
         </div>
         <div className='lg:grid lg:gap-10 lg:grid-cols-3 mb-10'>
           <div className='-mx-2 md:items-center md:flex mt-3'>
-            <InputComponent title={'Kota'} valueInput={dataPeserta?.kota} disabledInput={true} />
+            <InputComponent title={'Kota'} value={dataPeserta?.kota} disabledInput={true} />
           </div>
           <div className='-mx-2 md:items-center md:flex mt-3'>
-            <InputComponent title={'Kodepos'} valueInput={dataPeserta?.kodepos} disabledInput={true} />
+            <InputComponent title={'Kodepos'} value={dataPeserta?.kodepos} disabledInput={true} />
           </div>
           <div className='-mx-2 md:items-center md:flex mt-3'>
-            <InputComponent title={'Provinsi'} valueInput={dataPeserta?.provinsi} disabledInput={true} />
+            <InputComponent title={'Provinsi'} value={dataPeserta?.provinsi} disabledInput={true} />
           </div>
         </div>
       </div>

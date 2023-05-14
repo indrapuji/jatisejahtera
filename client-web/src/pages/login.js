@@ -144,7 +144,12 @@ function login() {
             <div className='flex-1'>
               <div className='text-center'>
                 <div className='flex justify-center mx-auto'>
-                  <Image className='w-auto h-7 sm:h-8' src={Logo} alt='logo' />
+                  <Image
+                    className='w-auto h-7 sm:h-8 cursor-pointer'
+                    src={Logo}
+                    alt='logo'
+                    onClick={() => router.push('/')}
+                  />
                 </div>
 
                 <p className='mt-3 text-gray-500 dark:text-gray-300'>Sign in to access your account</p>

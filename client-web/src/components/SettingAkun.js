@@ -120,10 +120,10 @@ function SettingAkun({profileData}) {
         <div className='lg:pr-10 flex flex-col mb-4'>
           <div className='lg:grid lg:gap-10 lg:grid-cols-2'>
             <div className='-mx-2 md:items-center md:flex mt-3'>
-              <InputComponent title={'Username'} valueInput={profileData.username} disabledInput={true} />
+              <InputComponent title={'Username'} value={profileData.username} disabledInput={true} />
             </div>
             <div className='-mx-2 md:items-center md:flex mt-3'>
-              <InputComponent title={'Nomor Induk'} valueInput={profileData.nip} disabledInput={true} />
+              <InputComponent title={'Nomor Induk'} value={profileData.nip} disabledInput={true} />
             </div>
           </div>
 

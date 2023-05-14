@@ -25,12 +25,12 @@ export default () => {
         <div className='px-4 py-8 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-8'>
           <div className='flex flex-col items-start max-w-screen-sm md:flex-row sm:mx-auto'>
             <div>
-              <h1 class='mt-4 text-l font-semibold text-gray-800 dark:text-white'>KANTOR PUSAT</h1>
-              <p class='mt-2 text-gray-500 dark:text-gray-400 text-sm'>D/A WISMA PERHUTANI</p>
-              <p class='mt-0 text-gray-500 dark:text-gray-400 text-sm'>JALAN VILLA NO.1 GATOT SOBROTO</p>
-              <p class='mt-0 text-gray-500 dark:text-gray-400 text-sm'>KAV. 17 – 18 JAKARTA SELATAN</p>
-              <p class='mt-0 text-gray-500 dark:text-gray-400 text-sm'>TLP. 62.21.5252983, FAX. 62.21.5252983</p>
-              <p class='mt-0 text-gray-500 dark:text-gray-400 text-sm'>yayasanjatisejahtera@yahoo.co.id</p>
+              <h1 className='mt-4 text-l font-semibold text-gray-800 dark:text-white'>KANTOR PUSAT</h1>
+              <p className='mt-2 text-gray-500 dark:text-gray-400 text-sm'>D/A WISMA PERHUTANI</p>
+              <p className='mt-0 text-gray-500 dark:text-gray-400 text-sm'>JALAN VILLA NO.1 GATOT SOBROTO</p>
+              <p className='mt-0 text-gray-500 dark:text-gray-400 text-sm'>KAV. 17 – 18 JAKARTA SELATAN</p>
+              <p className='mt-0 text-gray-500 dark:text-gray-400 text-sm'>TLP. 62.21.5252983, FAX. 62.21.5252983</p>
+              <p className='mt-0 text-gray-500 dark:text-gray-400 text-sm'>yayasanjatisejahtera@yahoo.co.id</p>
             </div>
           </div>
         </div>

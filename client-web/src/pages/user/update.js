@@ -5,60 +5,88 @@ import Footer from '@components/Footer';
 import newAlert from '@components/newAlert';
 import {useRouter} from 'next/router';
 import axios from 'axios';
+import InputComponent from '@components/InputComponent';
+import getAge from '@utilities/getAge';
+import JABAR from '@utilities/jabarSection';
+import KAPUS from '@utilities/kapusSection';
+import JATENG from '@utilities/jatengSection';
+import JATIM from '@utilities/jatimSection';
 
 function Update() {
   const router = useRouter();
+
+  const [loading, setLoading] = useState(false);
+  const [profileData, setProfileData] = useState();
+  const [formData, setFormData] = useState({
+    regional: '',
+    cabang: '',
+  });
+
+  const [umurPeserta, setUmurPeserta] = useState('');
+  const [umurPasangan, setUmurPasangan] = useState('');
+  const [umurAnak, setUmurAnak] = useState('');
+
   useEffect(() => {
     if (!localStorage.token) {
       newAlert({status: 'error', message: 'Anda belum login'});
       router.push('/login');
+    } else {
+      getProfile();
     }
   }, []);
 
-  const [formData, setFormData] = useState({
-    permohonan_pensiunan: '',
-    pernyataan_dari_pensiunan: '',
-    fotokopi_kp: '',
-    fotokopi_sk_pensiun: '',
-    foto_selfie: '',
-    all_in_one: '',
-  });
-
-  const [loading, setLoading] = useState(false);
-
-  const onFormChange = (e) => {
-    e.preventDefault();
-    const {name, files} = e.target;
-    setFormData({
-      ...formData,
-      [name]: files[0],
-    });
-  };
-
-  const onFormSubmit = async (e) => {
+  const getProfile = async () => {
     try {
-      e.preventDefault();
-      setLoading(true);
-      const newFormData = new FormData();
-      for (let keys in formData) {
-        newFormData.append(`${keys}`, formData[keys]);
-      }
-      await axios({
-        method: 'POST',
-        url: `${process.env.API_URL}/claim/manfaat/${localStorage.username}`,
-        data: newFormData,
+      const {data} = await axios({
+        method: 'GET',
+        url: `${process.env.API_URL}/user/profile`,
         headers: {
           token: localStorage.token,
         },
       });
-      newAlert({status: 'success', message: 'Claim berhasil diajukan'});
-      router.push('/');
-      setLoading(false);
-    } catch (err) {
-      console.log(err);
-      newAlert({status: 'error', message: err.response.data.msg});
-      setLoading(false);
+      console.log(data);
+      // console.log(data.Datum);
+      // console.log(data.Claims);
+      setProfileData(data);
+      //   setDataPeserta(data.Datum);
+      //   setClaimData(data.Claims);
+    } catch (error) {
+      console.log(error);
     }
+  };
+
+  const onFormChange = (e) => {
+    e.preventDefault();
+    const {name, value} = e.target;
+    if (name === 'tgl_lahir') {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+      setUmurPeserta(getAge(value));
+    } else if (name === 'tgl_lahir_pasangan') {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+      setUmurPasangan(getAge(value));
+    } else if (name === 'tgl_lahir_anak') {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+      setUmurAnak(getAge(value));
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
+  };
+
+  const onFormSubmit = async (e) => {
+    e.preventDefault();
+    console.log('ini bisa');
   };
   return (
     <Layout pageTitle={'KLAIM || JATISEJAHTERA'}>
@@ -72,74 +100,248 @@ function Update() {
           />
         </div>
 
-        <div className='w-full px-8 bg-white rounded-lg shadow-md dark:bg-gray-800'>
+        <div className='w-full px-8 bg-white rounded-lg shadow-md dark:bg-gray-800 py-5'>
           <div className='max-w-xl md:mx-auto text-center sm:text-center lg:max-w-2xl'>
             <h2 className='max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto'>
               Update data
             </h2>
           </div>
-          <div>
-            <p>Data diri</p>
-          </div>
+
           <form onSubmit={onFormSubmit}>
+            <div className='-mx-2 md:items-center md:flex'>
+              <InputComponent title={'Nama'} value={profileData?.name} disabledInput={true} onChange={onFormChange} />
+            </div>
+            <div className='-mx-2 md:items-center md:flex mt-3'>
+              <InputComponent
+                title={'NIP/NPP/NIK'}
+                value={profileData?.nip}
+                disabledInput={true}
+                onChange={onFormChange}
+              />
+            </div>
+            <div className='-mx-2 md:items-center md:flex mt-3'>
+              <InputComponent title={'Email'} value={profileData?.email} disabledInput={true} onChange={onFormChange} />
+            </div>
+            <div className='lg:grid lg:gap-10 lg:grid-cols-3'>
+              <div className='col-span-2 -mx-2 md:items-center md:flex mt-3'>
+                <InputComponent
+                  title={'Tanggal lahir'}
+                  type={'date'}
+                  onChange={onFormChange}
+                  name='tgl_lahir'
+                  value={formData.tgl_lahir}
+                />
+              </div>
+              <div className='-mx-2 md:items-center md:flex mt-3'>
+                <InputComponent name='umur_peserta' title={'Umur'} disabledInput value={umurPeserta} />
+              </div>
+            </div>
+            <div className='lg:grid lg:gap-10 lg:grid-cols-2'>
+              <div className='-mx-2 md:items-center md:flex mt-3'>
+                <InputComponent title={'Nomor KTP'} onChange={onFormChange} />
+              </div>
+              <div className='-mx-2 md:items-center md:flex mt-3'>
+                <InputComponent title={'Nomor BPJS'} onChange={onFormChange} />
+              </div>
+            </div>
+            <div className='lg:grid lg:gap-10 lg:grid-cols-3'>
+              <div className='-mx-2 md:items-center md:flex mt-3'>
+                <InputComponent title={'Nama Bank'} onChange={onFormChange} />
+              </div>
+              <div className='col-span-2 -mx-2 md:items-center md:flex mt-3'>
+                <InputComponent title={'Nomor Rekening'} onChange={onFormChange} />
+              </div>
+            </div>
+            <div className='lg:grid lg:gap-10 lg:grid-cols-4'>
+              <div className='-mx-2 md:items-center md:flex mt-3'>
+                <div className='flex-1 px-2'>
+                  <label className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>Regional</label>
+                  <select
+                    className='bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                    name='regional'
+                    value={formData.regional}
+                    onChange={onFormChange}
+                  >
+                    <option value=''>Pilih Regional</option>
+                    <option value='kantor-pusat'>Kantor Pusat</option>
+                    <option value='jawa-barat'>Jawa Barat dan Banten</option>
+                    <option value='jawa-tengah'>Jawa Tengah</option>
+                    <option value='jawa-timur'>Jawa Timur</option>
+                  </select>
+                </div>
+              </div>
+              <div className='col-span-2 -mx-2 md:items-center md:flex mt-3'>
+                <div className='flex-1 px-2'>
+                  <label className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>KPH</label>
+                  <select
+                    className='bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                    name='cabang'
+                    onChange={onFormChange}
+                  >
+                    <option value=''>Pilih KPH</option>
+                    {formData.regional === 'kantor-pusat' &&
+                      KAPUS.map((item, index) => (
+                        <option key={index} value={item.value}>
+                          {item.labelKey}
+                        </option>
+                      ))}
+                    {formData.regional === 'jawa-barat' &&
+                      JABAR.map((item, index) => (
+                        <option key={index} value={item.value}>
+                          {item.labelKey}
+                        </option>
+                      ))}
+                    {formData.regional === 'jawa-tengah' &&
+                      JATENG.map((item, index) => (
+                        <option key={index} value={item.value}>
+                          {item.labelKey}
+                        </option>
+                      ))}
+                    {formData.regional === 'jawa-timur' &&
+                      JATIM.map((item, index) => (
+                        <option key={index} value={item.value}>
+                          {item.labelKey}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+              </div>
+              <div className='-mx-2 md:items-center md:flex mt-3'>
+                <div className='flex-1 px-2'>
+                  <label className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>
+                    Golongan saat pensiun
+                  </label>
+                  <select
+                    className='bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                    name='regional'
+                    value={formData.regional}
+                    onChange={onFormChange}
+                  >
+                    <option value=''>Pilih golongan</option>
+                    <option value='A / I'>A / I</option>
+                    <option value='II'>II</option>
+                    <option value='III'>III</option>
+                    <option value='IV'>IV</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div className='-mx-2 md:items-center md:flex mt-3'>
+              <InputComponent title={'Nomor Telepon'} onChange={onFormChange} />
+            </div>
+            <div className='-mx-2 md:items-center md:flex mt-3'>
+              <div className='flex-1 px-2'>
+                <label className='block mb-2 text-sm text-gray-600 dark:text-gray-200'>Alamat</label>
+                <textarea
+                  rows='4'
+                  placeholder='Alamat...'
+                  className='bg-white-200 block w-full px-5 py-1.5 mt-2 text-gray-700 placeholder-gray-400 border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40'
+                  onChange={onFormChange}
+                />
+              </div>
+            </div>
+            <div className='lg:grid lg:gap-10 lg:grid-cols-2'>
+              <div className='-mx-2 md:items-center md:flex mt-3'>
+                <InputComponent title={'Kecamatan'} onChange={onFormChange} />
+              </div>
+              <div className='-mx-2 md:items-center md:flex mt-3'>
+                <InputComponent title={'Kelurahan'} onChange={onFormChange} />
+              </div>
+            </div>
+            <div className='lg:grid lg:gap-10 lg:grid-cols-3'>
+              <div className='-mx-2 md:items-center md:flex mt-3'>
+                <InputComponent title={'Kota / Kabupaten'} onChange={onFormChange} />
+              </div>
+              <div className='-mx-2 md:items-center md:flex mt-3'>
+                <InputComponent title={'Kodepos'} onChange={onFormChange} />
+              </div>
+              <div className='-mx-2 md:items-center md:flex mt-3'>
+                <InputComponent title={'Provinsi'} onChange={onFormChange} />
+              </div>
+            </div>
             <div>
-              <label className='block text-sm text-gray-500 dark:text-gray-300'>
-                Surat permohonan pensiunan perum perhutani
-              </label>
-              <input
-                type='file'
-                className='block w-full px-3 py-2 mt-2 text-sm text-gray-600 bg-white border border-gray-200 rounded-lg file:bg-gray-200 file:text-gray-700 file:text-sm file:px-4 file:py-1 file:border-none file:rounded-full dark:file:bg-gray-800 dark:file:text-gray-200 dark:text-gray-300 placeholder-gray-400/70 dark:placeholder-gray-500 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:focus:border-blue-300'
-                name='permohonan_pensiunan'
-                onChange={onFormChange}
-              />
+              <p className='mb-4 mt-12 font-sans text-xl font-bold leading-none tracking-tight sm:text-2xl md:mx-auto'>
+                Data Pasangan (Suami / Istri)
+              </p>
             </div>
-            <div className='mt-6'>
-              <label className='block text-sm text-gray-500 dark:text-gray-300'>
-                Surat pernyataan dari pensiunan perum perhutani
-              </label>
-              <input
-                type='file'
-                className='block w-full px-3 py-2 mt-2 text-sm text-gray-600 bg-white border border-gray-200 rounded-lg file:bg-gray-200 file:text-gray-700 file:text-sm file:px-4 file:py-1 file:border-none file:rounded-full dark:file:bg-gray-800 dark:file:text-gray-200 dark:text-gray-300 placeholder-gray-400/70 dark:placeholder-gray-500 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:focus:border-blue-300'
-                name='pernyataan_dari_pensiunan'
-                onChange={onFormChange}
-              />
+            <div className='-mx-2 md:items-center md:flex'>
+              <InputComponent title={'Nama Istri / Suami'} onChange={onFormChange} />
             </div>
-            <div className='mt-6'>
-              <label className='block text-sm text-gray-500 dark:text-gray-300'>Photo Copy kartu peserta</label>
-              <input
-                type='file'
-                className='block w-full px-3 py-2 mt-2 text-sm text-gray-600 bg-white border border-gray-200 rounded-lg file:bg-gray-200 file:text-gray-700 file:text-sm file:px-4 file:py-1 file:border-none file:rounded-full dark:file:bg-gray-800 dark:file:text-gray-200 dark:text-gray-300 placeholder-gray-400/70 dark:placeholder-gray-500 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:focus:border-blue-300'
-                name='fotokopi_kp'
-                onChange={onFormChange}
-              />
+            <div className='lg:grid lg:gap-10 lg:grid-cols-3'>
+              <div className='col-span-2 -mx-2 md:items-center md:flex mt-3'>
+                <InputComponent
+                  title={'Tanggal lahir Istri / Suami'}
+                  type={'date'}
+                  onChange={onFormChange}
+                  name='tgl_lahir_pasangan'
+                  value={formData.tgl_lahir_pasangan}
+                />
+              </div>
+              <div className='-mx-2 md:items-center md:flex mt-3'>
+                <InputComponent title={'Umur Istri / Suami'} disabledInput value={umurPasangan} />
+              </div>
             </div>
-            <div className='mt-6'>
-              <label className='block text-sm text-gray-500 dark:text-gray-300'>Photo Copy SK Pensiun</label>
-              <input
-                type='file'
-                className='block w-full px-3 py-2 mt-2 text-sm text-gray-600 bg-white border border-gray-200 rounded-lg file:bg-gray-200 file:text-gray-700 file:text-sm file:px-4 file:py-1 file:border-none file:rounded-full dark:file:bg-gray-800 dark:file:text-gray-200 dark:text-gray-300 placeholder-gray-400/70 dark:placeholder-gray-500 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:focus:border-blue-300'
-                name='fotokopi_sk_pensiun'
-                onChange={onFormChange}
-              />
+            <div className='-mx-2 md:items-center md:flex mt-3'>
+              <InputComponent title={'Nomor Telepon Istri / Suami'} onChange={onFormChange} />
             </div>
-            <div className='mt-6'>
-              <label className='block text-sm text-gray-500 dark:text-gray-300'>Foto selfie dangan memegang KTP</label>
-              <input
-                type='file'
-                className='block w-full px-3 py-2 mt-2 text-sm text-gray-600 bg-white border border-gray-200 rounded-lg file:bg-gray-200 file:text-gray-700 file:text-sm file:px-4 file:py-1 file:border-none file:rounded-full dark:file:bg-gray-800 dark:file:text-gray-200 dark:text-gray-300 placeholder-gray-400/70 dark:placeholder-gray-500 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:focus:border-blue-300'
-                name='foto_selfie'
-                onChange={onFormChange}
-              />
+            <div className='lg:grid lg:gap-10 lg:grid-cols-2'>
+              <div className='-mx-2 md:items-center md:flex mt-3'>
+                <InputComponent title={'Nomor KTP Istri / Suami'} onChange={onFormChange} />
+              </div>
+              <div className='-mx-2 md:items-center md:flex mt-3'>
+                <InputComponent title={'Nomor BPJS Istri / Suami'} onChange={onFormChange} />
+              </div>
             </div>
-            <div className='mt-6'>
-              <label className='block text-sm text-green-600 dark:text-green-600'>All in One</label>
-              <input
-                type='file'
-                className='block w-full px-3 py-2 mt-2 text-sm text-gray-600 bg-white border border-green-600 rounded-lg file:bg-gray-200 file:text-gray-700 file:text-sm file:px-4 file:py-1 file:border-none file:rounded-full dark:file:bg-gray-800 dark:file:text-gray-200 dark:text-gray-300 placeholder-gray-400/70 dark:placeholder-gray-500 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:focus:border-blue-300'
-                name='all_in_one'
-                onChange={onFormChange}
-              />
+            <div className='lg:grid lg:gap-10 lg:grid-cols-3'>
+              <div className='-mx-2 md:items-center md:flex mt-3'>
+                <InputComponent title={'Nama Bank Istri / Suami'} onChange={onFormChange} />
+              </div>
+              <div className='col-span-2 -mx-2 md:items-center md:flex mt-3'>
+                <InputComponent title={'Nomor Rekening Istri / Suami'} onChange={onFormChange} />
+              </div>
             </div>
+            <div>
+              <p className='mb-4 mt-12 font-sans text-xl font-bold leading-none tracking-tight sm:text-2xl md:mx-auto'>
+                Data anak yang masih dalam tanggungan
+              </p>
+            </div>
+            <div className='-mx-2 md:items-center md:flex'>
+              <InputComponent title={'Nama Anak'} onChange={onFormChange} />
+            </div>
+            <div className='lg:grid lg:gap-10 lg:grid-cols-3'>
+              <div className='col-span-2 -mx-2 md:items-center md:flex mt-3'>
+                <InputComponent
+                  title={'Tanggal lahir Anak'}
+                  type={'date'}
+                  onChange={onFormChange}
+                  name='tgl_lahir_anak'
+                  value={formData.tgl_lahir_anak}
+                />
+              </div>
+              <div className='-mx-2 md:items-center md:flex mt-3'>
+                <InputComponent title={'Umur Anak'} disabledInput value={umurAnak} />
+              </div>
+            </div>
+            <div className='-mx-2 md:items-center md:flex mt-3'>
+              <InputComponent title={'Nomor Telepon Anak'} onChange={onFormChange} />
+            </div>
+            <div className='lg:grid lg:gap-10 lg:grid-cols-2'>
+              <div className='-mx-2 md:items-center md:flex mt-3'>
+                <InputComponent title={'Nomor KTP Anak'} onChange={onFormChange} />
+              </div>
+              <div className='-mx-2 md:items-center md:flex mt-3'>
+                <InputComponent title={'Nomor BPJS Anak'} onChange={onFormChange} />
+              </div>
+            </div>
+            <div className='lg:grid lg:gap-10 lg:grid-cols-3'>
+              <div className='-mx-2 md:items-center md:flex mt-3'>
+                <InputComponent title={'Nama Bank Anak'} onChange={onFormChange} />
+              </div>
+              <div className='col-span-2 -mx-2 md:items-center md:flex mt-3'>
+                <InputComponent title={'Nomor Rekening Anak'} onChange={onFormChange} />
+              </div>
+            </div>
+
             <div className='mt-6'>
               <button
                 className='flex items-center px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80'
