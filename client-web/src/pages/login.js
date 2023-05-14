@@ -42,6 +42,7 @@ function login() {
       if (data.role === 'member') {
         localStorage.setItem('token', data.accessToken);
         localStorage.setItem('username', data.username);
+        localStorage.setItem('status', data.status);
         newAlert({status: 'success', message: `Selamat datang ${data.name}`});
         router.push('/');
       } else {
