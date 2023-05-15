@@ -12,6 +12,11 @@ function Kacamata() {
     if (!localStorage.token) {
       newAlert({status: 'error', message: 'Anda belum login'});
       router.push('/');
+    } else {
+      if (localStorage.status === 'false') {
+        newAlert({status: 'error', message: 'Anda belum update data anda'});
+        router.push('/user/update');
+      }
     }
   }, []);
 

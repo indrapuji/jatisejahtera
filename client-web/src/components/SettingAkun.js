@@ -70,7 +70,7 @@ function SettingAkun({profileData}) {
           <div className='lg:pr-10 flex flex-col'>
             <div className='-mx-2 md:items-center md:flex'>
               <div className='flex-1 px-2'>
-                <label className='block mb-2 text-sm text-gray-600 dark:text-gray-200'>Old Password</label>
+                <label className='block mb-2 text-sm text-gray-600 dark:text-gray-200'>Password lama</label>
                 <input
                   type='text'
                   name='old_password'
@@ -83,7 +83,7 @@ function SettingAkun({profileData}) {
             </div>
             <div className='-mx-2 md:items-center md:flex mt-3'>
               <div className='flex-1 px-2'>
-                <label className='block mb-2 text-sm text-gray-600 dark:text-gray-200'>New Password</label>
+                <label className='block mb-2 text-sm text-gray-600 dark:text-gray-200'>Password baru</label>
                 <input
                   type='text'
                   name='new_password'
@@ -96,7 +96,7 @@ function SettingAkun({profileData}) {
             </div>
             <div className='-mx-2 md:items-center md:flex mt-3'>
               <div className='flex-1 px-2'>
-                <label className='block mb-2 text-sm text-gray-600 dark:text-gray-200'>Ulangi Password Lama</label>
+                <label className='block mb-2 text-sm text-gray-600 dark:text-gray-200'>Ulangi Password baru</label>
                 <input
                   type='text'
                   name='validate'
