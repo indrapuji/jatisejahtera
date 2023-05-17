@@ -6,11 +6,11 @@ import newAlert from '../../../components/NewAlert';
 import Swal from 'sweetalert2';
 
 const fields = [
-  {key: 'title', label: 'Deskripsi', _style: {width: '60%'}},
-  {key: 'image_url', label: 'Path', _style: {width: '20%'}},
-  {key: 'status', label: 'Status', _style: {width: '10%'}},
+  {key: 'title', label: 'Deskripsi', _style: {width: '30%'}},
+  {key: 'status_publish', label: 'Status', _style: {width: '10%'}},
   {key: 'image', label: 'Image', _style: {width: '20%'}},
-  {key: 'action', _style: {width: '10%'}},
+  {key: 'change', label: '', _style: {width: '5%'}},
+  {key: 'action', _style: {width: '5%'}},
 ];
 const Perumahan = () => {
   const [dataPerumahan, setDataPerumahan] = useState([]);
@@ -52,6 +52,32 @@ const Perumahan = () => {
       console.log(error);
     }
   };
+
+  const handleChange = async (idContent, statusContent) => {
+    console.log(idContent, statusContent);
+    try {
+      Swal.fire({
+        title: 'Do you want to Change Status?',
+        showDenyButton: true,
+        confirmButtonText: 'Yes',
+        denyButtonText: `Don't Change`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios({
+            method: 'PUT',
+            url: HostUrl + '/content/single/' + idContent,
+            data: {
+              status: !statusContent,
+            },
+          });
+          newAlert({status: 'success', message: 'Berhasil'});
+          getPerumahan();
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <CRow>
@@ -74,13 +100,26 @@ const Perumahan = () => {
                 itemsPerPage={10}
                 pagination
                 scopedSlots={{
+                  change: (item, index) => {
+                    return (
+                      <td>
+                        <CButton
+                          color='warning'
+                          size='sm'
+                          onClick={() => {
+                            handleChange(item.id, item.status);
+                          }}
+                        >
+                          Change
+                        </CButton>
+                      </td>
+                    );
+                  },
                   action: (item, index) => {
                     return (
                       <td>
                         <CButton
                           color='danger'
-                          // variant="outline"
-                          // shape="pill"
                           size='sm'
                           onClick={() => {
                             handleDelete(item.id);
@@ -91,6 +130,7 @@ const Perumahan = () => {
                       </td>
                     );
                   },
+                  status_publish: (item) => <td>{item.status ? 'Publish' : 'Unpublish'}</td>,
                   image: (item) => (
                     <td>
                       <CImg src={item.image_url} height={100} />

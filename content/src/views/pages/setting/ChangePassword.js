@@ -67,7 +67,7 @@ const ChangePassword = () => {
         <CCol xs='12' md='12'>
           <CCard>
             <CCardHeader>
-              <strong>Tambah Admin</strong>
+              <strong>Ganti Password</strong>
             </CCardHeader>
             <CCardBody>
               <CForm onSubmit={submitForm}>
