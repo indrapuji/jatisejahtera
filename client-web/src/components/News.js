@@ -27,8 +27,8 @@ function News({data}) {
         <div className='absolute -top-10 scale-75 right-36'>
           <Image src={sideImage} alt='' />
         </div>
-        <div className=''>
-          <div className='max-w-xl md:mx-auto sm:text-center lg:max-w-2xl px-5'>
+        <div>
+          <div className='max-w-xl md:mx-auto text-center lg:max-w-2xl px-5'>
             <h2 className='max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto'>
               <span className='relative inline-block'>
                 <svg
@@ -46,7 +46,7 @@ function News({data}) {
                 <span className='relative'>Berita</span>
               </span>
             </h2>
-            <p className='inline-block py-px text-xs font-semibold tracking-wider text-teal-900 uppercase rounded-full bg-teal-accent-400'>
+            <p className='inline-block py-px text-xs font-semibold tracking-wider text-teal-900 uppercase'>
               Seputar Informasi Yayasan JATISEJAHTERA
             </p>
           </div>

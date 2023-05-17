@@ -30,7 +30,7 @@ function index() {
     <Layout pageTitle={'BERITA || JATISEJAHTERA'}>
       <Navigation />
       <div className='flex flex-col justify-between mt-10'>
-        <div className='max-w-xl md:mx-auto sm:text-center lg:max-w-2xl px-5'>
+        <div className='max-w-xl md:mx-auto text-center lg:max-w-2xl px-5'>
           <h2 className='max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto'>
             <span className='relative inline-block'>
               <svg
@@ -48,7 +48,7 @@ function index() {
               <span className='relative'>Berita</span>
             </span>
           </h2>
-          <p className='inline-block py-px text-xs font-semibold tracking-wider text-teal-900 uppercase rounded-full bg-teal-accent-400'>
+          <p className='inline-block py-px text-xs font-semibold tracking-wider text-teal-900 uppercase'>
             Seputar Informasi Yayasan JATISEJAHTERA
           </p>
         </div>

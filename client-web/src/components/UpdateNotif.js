@@ -6,7 +6,7 @@ function UpdateNotif() {
   const router = useRouter();
   const [notifOff, setNotifOff] = useState();
   useEffect(() => {
-    if (localStorage.token) {
+    if (localStorage.token && localStorage.status) {
       setNotifOff(localStorage.status === 'false' ? false : true);
     } else {
       setNotifOff(true);

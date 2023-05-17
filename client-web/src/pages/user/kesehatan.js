@@ -5,6 +5,8 @@ import Footer from '@components/Footer';
 import newAlert from '@components/newAlert';
 import {useRouter} from 'next/router';
 import axios from 'axios';
+import activeButton from '@utilities/activeButton';
+import showButton from '@utilities/showButton';
 
 function Kesehatan() {
   const router = useRouter();
@@ -32,12 +34,28 @@ function Kesehatan() {
 
   const [loading, setLoading] = useState(false);
 
-  const [activeButton, setActiveButton] = useState({
-    true:
-      'inline-block rounded bg-neutral-50 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-800 shadow-[0_4px_9px_-4px_#cbcbcb] transition duration-150 ease-in-out hover:bg-neutral-100 hover:shadow-[0_8px_9px_-4px_rgba(203,203,203,0.3),0_4px_18px_0_rgba(203,203,203,0.2)] focus:bg-neutral-100 focus:shadow-[0_8px_9px_-4px_rgba(203,203,203,0.3),0_4px_18px_0_rgba(203,203,203,0.2)] focus:outline-none focus:ring-0 active:bg-neutral-200 active:shadow-[0_8px_9px_-4px_rgba(203,203,203,0.3),0_4px_18px_0_rgba(203,203,203,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(251,251,251,0.3)] dark:hover:shadow-[0_8px_9px_-4px_rgba(251,251,251,0.1),0_4px_18px_0_rgba(251,251,251,0.05)] dark:focus:shadow-[0_8px_9px_-4px_rgba(251,251,251,0.1),0_4px_18px_0_rgba(251,251,251,0.05)] dark:active:shadow-[0_8px_9px_-4px_rgba(251,251,251,0.1),0_4px_18px_0_rgba(251,251,251,0.05)]',
-    false:
-      'inline-block rounded px-2 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-primary hover:text-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:text-primary-700',
-  });
+  const topBarKlaim = [
+    {
+      title: 'Kacamata',
+      class: showButton.false,
+      click: () => router.push('/user/kacamata'),
+    },
+    {
+      title: 'Kematian',
+      class: showButton.false,
+      click: () => router.push('/user/kematian'),
+    },
+    {
+      title: 'Rawat Inap',
+      class: showButton.true,
+      click: () => router.push('/user/kesehatan'),
+    },
+    {
+      title: 'Nilai Hidup',
+      class: showButton.false,
+      click: () => router.push('/user/manfaat'),
+    },
+  ];
 
   const sideBarText = [
     {
@@ -99,6 +117,15 @@ function Kesehatan() {
   return (
     <Layout pageTitle={'KLAIM || JATISEJAHTERA'}>
       <Navigation />
+      <div className='bg-white shadow dark:bg-gray-800 lg:hidden'>
+        <div className='container flex items-center justify-center p-6 mx-auto text-gray-600 capitalize dark:text-gray-300'>
+          {topBarKlaim.map((item, index) => (
+            <div key={index} className={item.class} onClick={item.click}>
+              {item.title}
+            </div>
+          ))}
+        </div>
+      </div>
       <div className='px-4 py-4 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-10'>
         {/* <div className='relative pb-20'>
           <img
@@ -110,7 +137,7 @@ function Kesehatan() {
 
         <div className='grid gap-10 lg:grid-cols-3 '>
           {/* side card */}
-          <div className='w-full px-8 py-4 mt-10 bg-white rounded-lg dark:bg-gray-800 lg:my-12 '>
+          <div className='w-full px-8 py-4 mt-10 bg-white rounded-lg dark:bg-gray-800 lg:my-12 hidden lg:block'>
             {sideBarText.map((item, index) => (
               <div key={index}>
                 <button type='button' className={item.class} onClick={item.click}>
