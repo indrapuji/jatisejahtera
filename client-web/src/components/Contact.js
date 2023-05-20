@@ -14,6 +14,7 @@ function Contact() {
 
   const onFormChange = (event) => {
     const {name, value} = event.target;
+    console.log(name, value);
     setFormData({
       ...formData,
       [name]: value,
@@ -99,7 +100,7 @@ function Contact() {
                     <label className='block mb-2 text-sm text-gray-600 dark:text-gray-200'>Email address</label>
                     <input
                       type='email'
-                      name='johndoe@gmail.com'
+                      name='email'
                       value={formData.email}
                       placeholder='johndoe@example.com'
                       className='block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40'
