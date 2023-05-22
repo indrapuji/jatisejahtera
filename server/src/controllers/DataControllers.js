@@ -201,9 +201,6 @@ class DataControllers {
       } = req.body;
       const userValidation = await User.findOne({where: {id}});
       if (!userValidation) throw createErrors(401, 'User not found!');
-      if (userValidation.role === 'super-admin' || userValidation.role === 'admin') {
-        throw createErrors(401, 'Admin cannot record data!');
-      }
       let option = {
         tgl_lahir,
         no_ktp,

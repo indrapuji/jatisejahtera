@@ -29,6 +29,7 @@ const DetailPeserta = () => {
   const history = useHistory();
   const [peserta, setPeserta] = useState([]);
   const [claimData, setClaimData] = useState([]);
+  const [rev, setRev] = useState({});
 
   useEffect(() => {
     getDetail();
@@ -46,6 +47,37 @@ const DetailPeserta = () => {
       });
       console.log(data);
       setPeserta(data);
+      setRev({
+        tgl_lahir: data.tgl_lahir,
+        no_ktp: data.no_ktp,
+        no_bpjs: data.no_bpjs,
+        nama_bank: data.nama_bank,
+        no_rekening: data.no_rekening,
+        satuan_kerja: data.satuan_kerja,
+        cabang: data.cabang,
+        golongan_pangkat: data.golongan_pangkat,
+        no_telp: data.no_telp,
+        alamat: data.alamat,
+        kelurahan: data.kelurahan,
+        kecamatan: data.kecamatan,
+        kota: data.kota,
+        kodepos: data.kodepos,
+        provinsi: data.provinsi,
+        nama_pasangan: data.nama_pasangan,
+        tgl_lahir_pasangan: data.tgl_lahir_pasangan,
+        no_telp_pasangan: data.no_telp_pasangan,
+        no_ktp_pasangan: data.no_ktp_pasangan,
+        no_bpjs_pasangan: data.no_bpjs_pasangan,
+        nama_bank_pasangan: data.nama_bank_pasangan,
+        no_rekening_pasangan: data.no_rekening_pasangan,
+        nama_anak: data.nama_anak,
+        tgl_lahir_anak: data.tgl_lahir_anak,
+        no_tlp_anak: data.no_tlp_anak,
+        no_ktp_anak: data.no_ktp_anak,
+        no_bpjs_anak: data.no_bpjs_anak,
+        nama_bank_anak: data.nama_bank_anak,
+        no_rekening_anak: data.no_rekening_anak,
+      });
       const claimHistory = await axios({
         method: 'GET',
         url: `${HostUrl}/claim?userId=${idPeserta}`,
@@ -58,6 +90,16 @@ const DetailPeserta = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const onFormChange = (e) => {
+    e.preventDefault();
+    const {value, name} = e.target;
+    console.log(value);
+    setRev({
+      ...rev,
+      [name]: value,
+    });
   };
 
   const handleBack = () => {
@@ -104,6 +146,24 @@ const DetailPeserta = () => {
     }
   };
 
+  const handleUpdate = async (dataId) => {
+    try {
+      // e.preventDefault();
+      await axios({
+        method: 'PUT',
+        url: `${HostUrl}/data/update-record/${dataId}`,
+        data: rev,
+        headers: {
+          token: localStorage.token,
+        },
+      });
+      NewAlert({status: 'success', message: 'Data Updated'});
+    } catch (error) {
+      console.log(error.response);
+      NewAlert({status: 'error', message: 'Form Error'});
+    }
+  };
+
   return (
     <CContainer>
       <CRow className='justify-content-center'>
@@ -118,6 +178,7 @@ const DetailPeserta = () => {
               <div style={{marginBottom: 20}}>
                 <strong>Data Diri</strong>
               </div>
+
               <CFormGroup row>
                 <CCol md='3'>
                   <CLabel>Nama</CLabel>
@@ -147,7 +208,7 @@ const DetailPeserta = () => {
                   <CLabel>Tanggal Lahir</CLabel>
                 </CCol>
                 <CCol md='9'>
-                  <CInput size='sm' value={peserta.tgl_lahir} disabled />
+                  <CInput size='sm' value={rev.tgl_lahir} name='tgl_lahir' onChange={onFormChange} />
                 </CCol>
               </CFormGroup>
               <CFormGroup row>
@@ -155,7 +216,7 @@ const DetailPeserta = () => {
                   <CLabel>No KTP</CLabel>
                 </CCol>
                 <CCol md='9'>
-                  <CInput size='sm' value={peserta.no_ktp} disabled />
+                  <CInput size='sm' value={rev.no_ktp} name='no_ktp' onChange={onFormChange} />
                 </CCol>
               </CFormGroup>
               <CFormGroup row>
@@ -163,7 +224,7 @@ const DetailPeserta = () => {
                   <CLabel>No BPJS</CLabel>
                 </CCol>
                 <CCol md='9'>
-                  <CInput size='sm' value={peserta.no_bpjs} disabled />
+                  <CInput size='sm' value={rev.no_bpjs} name='no_bpjs' onChange={onFormChange} />
                 </CCol>
               </CFormGroup>
               <CFormGroup row>
@@ -171,21 +232,24 @@ const DetailPeserta = () => {
                   <CLabel>Data Bank</CLabel>
                 </CCol>
                 <CCol md='3'>
-                  <CInput size='sm' value={peserta.nama_bank} disabled />
+                  <CInput size='sm' value={rev.nama_bank} name='no_bpjs' onChange={onFormChange} />
                 </CCol>
                 <CCol md='6'>
-                  <CInput size='sm' value={peserta.no_rekening} disabled />
+                  <CInput size='sm' value={rev.no_rekening} name='no_rekening' onChange={onFormChange} />
                 </CCol>
               </CFormGroup>
               <CFormGroup row>
                 <CCol md='3'>
                   <CLabel>Satuan Kerja</CLabel>
                 </CCol>
-                <CCol md='4'>
-                  <CInput size='sm' value={peserta.satuan_kerja} disabled />
+                <CCol md='3'>
+                  <CInput size='sm' value={rev.satuan_kerja} disabled />
                 </CCol>
-                <CCol md='5'>
-                  <CInput size='sm' value={peserta.golongan_pangkat} disabled />
+                <CCol md='4'>
+                  <CInput size='sm' value={rev.cabang} disabled />
+                </CCol>
+                <CCol md='2'>
+                  <CInput size='sm' value={rev.golongan_pangkat} name='golongan_pangkat' onChange={onFormChange} />
                 </CCol>
               </CFormGroup>
               <CFormGroup row>
@@ -193,7 +257,7 @@ const DetailPeserta = () => {
                   <CLabel>No Telp Rumah</CLabel>
                 </CCol>
                 <CCol md='9'>
-                  <CInput size='sm' value={peserta.no_telp} disabled />
+                  <CInput size='sm' value={rev.no_telp} name='no_telp' onChange={onFormChange} />
                 </CCol>
               </CFormGroup>
               <CFormGroup row>
@@ -201,28 +265,28 @@ const DetailPeserta = () => {
                   <CLabel>Alamat</CLabel>
                 </CCol>
                 <CCol md='9'>
-                  <CInput size='sm' value={peserta.alamat} disabled />
+                  <CInput size='sm' value={rev.alamat} name='alamat' onChange={onFormChange} />
                 </CCol>
               </CFormGroup>
               <CFormGroup row>
                 <CCol md='3' />
                 <CCol md='4'>
-                  <CInput size='sm' value={peserta.kelurahan} disabled />
+                  <CInput size='sm' value={rev.kelurahan} name='kelurahan' onChange={onFormChange} />
                 </CCol>
                 <CCol md='5'>
-                  <CInput size='sm' value={peserta.kecamatan} disabled />
+                  <CInput size='sm' value={rev.kecamatan} name='kecamatan' onChange={onFormChange} />
                 </CCol>
               </CFormGroup>
               <CFormGroup row>
                 <CCol md='3' />
                 <CCol md='3'>
-                  <CInput size='sm' value={peserta.kota} disabled />
+                  <CInput size='sm' value={rev.kota} name='kota' onChange={onFormChange} />
                 </CCol>
                 <CCol md='3'>
-                  <CInput size='sm' value={peserta.kodepos} disabled />
+                  <CInput size='sm' value={rev.kodepos} name='kodepos' onChange={onFormChange} />
                 </CCol>
                 <CCol md='3'>
-                  <CInput size='sm' value={peserta.provinsi} disabled />
+                  <CInput size='sm' value={rev.provinsi} name='provinsi' onChange={onFormChange} />
                 </CCol>
               </CFormGroup>
               <div style={{marginBottom: 20, marginTop: 30}}>
@@ -233,7 +297,7 @@ const DetailPeserta = () => {
                   <CLabel>Nama Istri / Suami</CLabel>
                 </CCol>
                 <CCol md='9'>
-                  <CInput size='sm' value={peserta.nama_pasangan} disabled />
+                  <CInput size='sm' value={rev.nama_pasangan} name='nama_pasangan' onChange={onFormChange} />
                 </CCol>
               </CFormGroup>
               <CFormGroup row>
@@ -241,7 +305,7 @@ const DetailPeserta = () => {
                   <CLabel>Tanggal Lahir Istri / Suami</CLabel>
                 </CCol>
                 <CCol md='9'>
-                  <CInput size='sm' value={peserta.tgl_lahir_pasangan} disabled />
+                  <CInput size='sm' value={rev.tgl_lahir_pasangan} name='tgl_lahir_pasangan' onChange={onFormChange} />
                 </CCol>
               </CFormGroup>
               <CFormGroup row>
@@ -249,7 +313,7 @@ const DetailPeserta = () => {
                   <CLabel>No Telp Istri / Suami</CLabel>
                 </CCol>
                 <CCol md='9'>
-                  <CInput size='sm' value={peserta.no_telp_pasangan} disabled />
+                  <CInput size='sm' value={rev.no_telp_pasangan} name='no_telp_pasangan' onChange={onFormChange} />
                 </CCol>
               </CFormGroup>
               <CFormGroup row>
@@ -257,7 +321,7 @@ const DetailPeserta = () => {
                   <CLabel>No KTP Istri / Suami</CLabel>
                 </CCol>
                 <CCol md='9'>
-                  <CInput size='sm' value={peserta.no_ktp_pasangan} disabled />
+                  <CInput size='sm' value={rev.no_ktp_pasangan} name='no_ktp_pasangan' onChange={onFormChange} />
                 </CCol>
               </CFormGroup>
               <CFormGroup row>
@@ -265,7 +329,7 @@ const DetailPeserta = () => {
                   <CLabel>No BPJS Istri / Suami</CLabel>
                 </CCol>
                 <CCol md='9'>
-                  <CInput size='sm' value={peserta.no_bpjs_pasangan} disabled />
+                  <CInput size='sm' value={rev.no_bpjs_pasangan} name='no_bpjs_pasangan' onChange={onFormChange} />
                 </CCol>
               </CFormGroup>
               <CFormGroup row>
@@ -273,10 +337,15 @@ const DetailPeserta = () => {
                   <CLabel>Data Bank Istri / Suami</CLabel>
                 </CCol>
                 <CCol md='3'>
-                  <CInput size='sm' value={peserta.nama_bank_pasangan} disabled />
+                  <CInput size='sm' value={rev.nama_bank_pasangan} name='nama_bank_pasangan' onChange={onFormChange} />
                 </CCol>
                 <CCol md='6'>
-                  <CInput size='sm' value={peserta.no_rekening_pasangan} disabled />
+                  <CInput
+                    size='sm'
+                    value={rev.no_rekening_pasangan}
+                    name='no_rekening_pasangan'
+                    onChange={onFormChange}
+                  />
                 </CCol>
               </CFormGroup>
               <div style={{marginBottom: 20, marginTop: 30}}>
@@ -287,7 +356,7 @@ const DetailPeserta = () => {
                   <CLabel>Nama Anak</CLabel>
                 </CCol>
                 <CCol md='9'>
-                  <CInput size='sm' value={peserta.nama_anak} disabled />
+                  <CInput size='sm' value={rev.nama_anak} name='nama_anak' onChange={onFormChange} />
                 </CCol>
               </CFormGroup>
               <CFormGroup row>
@@ -295,7 +364,7 @@ const DetailPeserta = () => {
                   <CLabel>Tanggal Lahir Anak</CLabel>
                 </CCol>
                 <CCol md='9'>
-                  <CInput size='sm' value={peserta.tgl_lahir_anak} disabled />
+                  <CInput size='sm' value={rev.tgl_lahir_anak} name='tgl_lahir_anak' onChange={onFormChange} />
                 </CCol>
               </CFormGroup>
               <CFormGroup row>
@@ -303,7 +372,7 @@ const DetailPeserta = () => {
                   <CLabel>No Telp Anak</CLabel>
                 </CCol>
                 <CCol md='9'>
-                  <CInput size='sm' value={peserta.no_tlp_anak} disabled />
+                  <CInput size='sm' value={rev.no_tlp_anak} name='no_tlp_anak' onChange={onFormChange} />
                 </CCol>
               </CFormGroup>
               <CFormGroup row>
@@ -311,7 +380,7 @@ const DetailPeserta = () => {
                   <CLabel>No KTP Anak</CLabel>
                 </CCol>
                 <CCol md='9'>
-                  <CInput size='sm' value={peserta.no_ktp_anak} disabled />
+                  <CInput size='sm' value={rev.no_ktp_anak} name='no_ktp_anak' onChange={onFormChange} />
                 </CCol>
               </CFormGroup>
               <CFormGroup row>
@@ -319,7 +388,7 @@ const DetailPeserta = () => {
                   <CLabel>No BPJS Anak</CLabel>
                 </CCol>
                 <CCol md='9'>
-                  <CInput size='sm' value={peserta.no_bpjs_anak} disabled />
+                  <CInput size='sm' value={rev.no_bpjs_anak} name='no_bpjs_anak' onChange={onFormChange} />
                 </CCol>
               </CFormGroup>
               <CFormGroup row>
@@ -327,10 +396,10 @@ const DetailPeserta = () => {
                   <CLabel>Data Bank Anak</CLabel>
                 </CCol>
                 <CCol md='3'>
-                  <CInput size='sm' value={peserta.nama_bank_anak} disabled />
+                  <CInput size='sm' value={rev.nama_bank_anak} name='nama_bank_anak' onChange={onFormChange} />
                 </CCol>
                 <CCol md='6'>
-                  <CInput size='sm' value={peserta.no_rekening_anak} disabled />
+                  <CInput size='sm' value={rev.no_rekening_anak} name='no_rekening_anak' onChange={onFormChange} />
                 </CCol>
               </CFormGroup>
             </CCardBody>
@@ -343,6 +412,14 @@ const DetailPeserta = () => {
                   size='sm'
                   style={{marginRight: 20}}
                   color='warning'
+                  onClick={() => handleUpdate(peserta.record_id)}
+                >
+                  <CIcon name='cil-recycle' /> Update Data
+                </CButton>
+                <CButton
+                  size='sm'
+                  style={{marginRight: 20}}
+                  color='danger'
                   onClick={() => handleReset(peserta.username)}
                 >
                   <CIcon name='cil-settings' /> Reset Password
@@ -353,7 +430,6 @@ const DetailPeserta = () => {
               </div>
             </CCardFooter>
           </CCard>
-
           <CCard>
             <CCardHeader>
               <div>
