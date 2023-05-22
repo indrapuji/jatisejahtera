@@ -505,6 +505,14 @@ const DetailPeserta = () => {
                             <div style={{textAlign: 'center', fontWeight: 'bold', fontSize: 8}}>Lampiran</div>
                           </div>
                         )}
+                        {item.all_in_one && (
+                          <div style={{width: 100, height: 120, marginRight: 10, marginTop: 10, cursor: 'pointer'}}>
+                            <a href={item.all_in_one} target='_blank' rel='noopener noreferrer'>
+                              <CImg src={filesSuccessImg} style={{width: 100, height: 100, objectFit: 'contain'}} />
+                            </a>
+                            <div style={{textAlign: 'center', fontWeight: 'bold', fontSize: 8}}>all in one</div>
+                          </div>
+                        )}
                       </div>
                       {item.pesan && (
                         <CFormGroup row>
