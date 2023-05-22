@@ -232,10 +232,22 @@ const DetailPeserta = () => {
                   <CLabel>Data Bank</CLabel>
                 </CCol>
                 <CCol md='3'>
-                  <CInput size='sm' value={rev.nama_bank} name='no_bpjs' onChange={onFormChange} />
+                  <CInput
+                    size='sm'
+                    placeholder='nama bank'
+                    value={rev.nama_bank}
+                    name='nama_bank'
+                    onChange={onFormChange}
+                  />
                 </CCol>
                 <CCol md='6'>
-                  <CInput size='sm' value={rev.no_rekening} name='no_rekening' onChange={onFormChange} />
+                  <CInput
+                    size='sm'
+                    placeholder='no rekening'
+                    value={rev.no_rekening}
+                    name='no_rekening'
+                    onChange={onFormChange}
+                  />
                 </CCol>
               </CFormGroup>
               <CFormGroup row>
@@ -249,7 +261,7 @@ const DetailPeserta = () => {
                   <CInput size='sm' value={rev.cabang} disabled />
                 </CCol>
                 <CCol md='2'>
-                  <CInput size='sm' value={rev.golongan_pangkat} name='golongan_pangkat' onChange={onFormChange} />
+                  <CInput size='sm' value={rev.golongan_pangkat} disabled />
                 </CCol>
               </CFormGroup>
               <CFormGroup row>
@@ -265,28 +277,46 @@ const DetailPeserta = () => {
                   <CLabel>Alamat</CLabel>
                 </CCol>
                 <CCol md='9'>
-                  <CInput size='sm' value={rev.alamat} name='alamat' onChange={onFormChange} />
+                  <CInput size='sm' placeholder='alamat' value={rev.alamat} name='alamat' onChange={onFormChange} />
                 </CCol>
               </CFormGroup>
               <CFormGroup row>
                 <CCol md='3' />
                 <CCol md='4'>
-                  <CInput size='sm' value={rev.kelurahan} name='kelurahan' onChange={onFormChange} />
+                  <CInput
+                    size='sm'
+                    placeholder='kelurahan'
+                    value={rev.kelurahan}
+                    name='kelurahan'
+                    onChange={onFormChange}
+                  />
                 </CCol>
                 <CCol md='5'>
-                  <CInput size='sm' value={rev.kecamatan} name='kecamatan' onChange={onFormChange} />
+                  <CInput
+                    size='sm'
+                    placeholder='kecamatan'
+                    value={rev.kecamatan}
+                    name='kecamatan'
+                    onChange={onFormChange}
+                  />
                 </CCol>
               </CFormGroup>
               <CFormGroup row>
                 <CCol md='3' />
                 <CCol md='3'>
-                  <CInput size='sm' value={rev.kota} name='kota' onChange={onFormChange} />
+                  <CInput size='sm' placeholder='kota' value={rev.kota} name='kota' onChange={onFormChange} />
                 </CCol>
                 <CCol md='3'>
-                  <CInput size='sm' value={rev.kodepos} name='kodepos' onChange={onFormChange} />
+                  <CInput size='sm' placeholder='kodepos' value={rev.kodepos} name='kodepos' onChange={onFormChange} />
                 </CCol>
                 <CCol md='3'>
-                  <CInput size='sm' value={rev.provinsi} name='provinsi' onChange={onFormChange} />
+                  <CInput
+                    size='sm'
+                    placeholder='provinsi'
+                    value={rev.provinsi}
+                    name='provinsi'
+                    onChange={onFormChange}
+                  />
                 </CCol>
               </CFormGroup>
               <div style={{marginBottom: 20, marginTop: 30}}>
@@ -337,11 +367,18 @@ const DetailPeserta = () => {
                   <CLabel>Data Bank Istri / Suami</CLabel>
                 </CCol>
                 <CCol md='3'>
-                  <CInput size='sm' value={rev.nama_bank_pasangan} name='nama_bank_pasangan' onChange={onFormChange} />
+                  <CInput
+                    size='sm'
+                    placeholder='nama bank'
+                    value={rev.nama_bank_pasangan}
+                    name='nama_bank_pasangan'
+                    onChange={onFormChange}
+                  />
                 </CCol>
                 <CCol md='6'>
                   <CInput
                     size='sm'
+                    placeholder='no rekening'
                     value={rev.no_rekening_pasangan}
                     name='no_rekening_pasangan'
                     onChange={onFormChange}
@@ -396,10 +433,22 @@ const DetailPeserta = () => {
                   <CLabel>Data Bank Anak</CLabel>
                 </CCol>
                 <CCol md='3'>
-                  <CInput size='sm' value={rev.nama_bank_anak} name='nama_bank_anak' onChange={onFormChange} />
+                  <CInput
+                    size='sm'
+                    placeholder='nama bank'
+                    value={rev.nama_bank_anak}
+                    name='nama_bank_anak'
+                    onChange={onFormChange}
+                  />
                 </CCol>
                 <CCol md='6'>
-                  <CInput size='sm' value={rev.no_rekening_anak} name='no_rekening_anak' onChange={onFormChange} />
+                  <CInput
+                    size='sm'
+                    placeholder='no rekening'
+                    value={rev.no_rekening_anak}
+                    name='no_rekening_anak'
+                    onChange={onFormChange}
+                  />
                 </CCol>
               </CFormGroup>
             </CCardBody>
