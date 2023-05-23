@@ -6,6 +6,7 @@ import HostUrl from '../../../utilities/HostUrl';
 import {encrypt} from 'src/utilities/RandomLink';
 import Swal from 'sweetalert2';
 import newAlert from 'src/components/NewAlert';
+import regionalChange from 'src/utilities/regionalChange';
 
 const DataPeserta = () => {
   const history = useHistory();
@@ -85,7 +86,7 @@ const DataPeserta = () => {
   const fields = [
     {key: 'name', label: 'Nama', _style: {width: '20%'}, sorter: true, filter: true},
     {key: 'nip', label: 'No Induk', _style: {width: '15%'}, sorter: true, filter: true},
-    {key: 'regional', label: 'Satuan Kerja', sorter: true, filter: true},
+    {key: 'regionalMember', label: 'Satuan Kerja', sorter: true, filter: true},
     {key: 'Username', label: 'Username', _style: {width: '10%'}, sorter: true, filter: true},
     {key: 'Password', label: 'Password', _style: {width: '15%'}, sorter: true, filter: true},
     {key: 'status', label: 'Status Update', _style: {width: '10%'}, sorter: true, filter: true},
@@ -134,7 +135,7 @@ const DataPeserta = () => {
                     ),
                     Username: (item) => <td>{show ? item.username : item.username.replace(/./g, '*')}</td>,
                     Password: (item) => <td>{show ? item.password : item.password.replace(/./g, '*')}</td>,
-
+                    regionalMember: (item) => <td>{item.regional && regionalChange(item.regional)}</td>,
                     show_details: (item) => {
                       return (
                         <td key={item.id}>

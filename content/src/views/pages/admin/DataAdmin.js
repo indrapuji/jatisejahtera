@@ -3,6 +3,7 @@ import {useHistory} from 'react-router-dom';
 import {CCard, CCardBody, CCardHeader, CCol, CDataTable, CRow, CButton} from '@coreui/react';
 import axios from 'axios';
 import HostUrl from '../../../utilities/HostUrl';
+import regionalChange from 'src/utilities/regionalChange';
 
 const DataAdmin = () => {
   const history = useHistory();
@@ -43,8 +44,8 @@ const DataAdmin = () => {
     {key: 'name', label: 'Nama', _style: {width: '20%'}, sorter: true, filter: true},
     {key: 'role', label: 'Role', _style: {width: '20%'}, sorter: true, filter: true},
     {key: 'username', label: 'Username', _style: {width: '20%'}, sorter: true, filter: true},
-    {key: 'password', label: 'Password', sorter: true, filter: true},
-    {key: 'region', label: 'Regional', sorter: true, filter: true},
+    {key: 'passwordHide', label: 'Password', sorter: true, filter: true},
+    {key: 'regionAdmin', label: 'Regional', sorter: true, filter: true},
     {key: 'show_details', label: '', _style: {width: '5%'}, sorter: false, filter: false},
   ];
 
@@ -81,6 +82,8 @@ const DataAdmin = () => {
                   size='sm'
                   scopedSlots={{
                     region: (item) => <td>{item.regional ? item.regional : '-'}</td>,
+                    passwordHide: (item) => <td>{item.password && item.password.replace(/./g, '*')}</td>,
+                    regionAdmin: (item) => <td>{item.regional && regionalChange(item.regional)}</td>,
                     show_details: (item) => {
                       return (
                         <td key={item.id}>

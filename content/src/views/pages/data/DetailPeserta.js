@@ -208,7 +208,7 @@ const DetailPeserta = () => {
                   <CLabel>Tanggal Lahir</CLabel>
                 </CCol>
                 <CCol md='9'>
-                  <CInput size='sm' value={rev.tgl_lahir} name='tgl_lahir' onChange={onFormChange} />
+                  <CInput size='sm' type='date' value={rev.tgl_lahir} name='tgl_lahir' onChange={onFormChange} />
                 </CCol>
               </CFormGroup>
               <CFormGroup row>
@@ -335,7 +335,13 @@ const DetailPeserta = () => {
                   <CLabel>Tanggal Lahir Istri / Suami</CLabel>
                 </CCol>
                 <CCol md='9'>
-                  <CInput size='sm' value={rev.tgl_lahir_pasangan} name='tgl_lahir_pasangan' onChange={onFormChange} />
+                  <CInput
+                    size='sm'
+                    type='date'
+                    value={rev.tgl_lahir_pasangan}
+                    name='tgl_lahir_pasangan'
+                    onChange={onFormChange}
+                  />
                 </CCol>
               </CFormGroup>
               <CFormGroup row>
@@ -401,7 +407,13 @@ const DetailPeserta = () => {
                   <CLabel>Tanggal Lahir Anak</CLabel>
                 </CCol>
                 <CCol md='9'>
-                  <CInput size='sm' value={rev.tgl_lahir_anak} name='tgl_lahir_anak' onChange={onFormChange} />
+                  <CInput
+                    size='sm'
+                    type='date'
+                    value={rev.tgl_lahir_anak}
+                    name='tgl_lahir_anak'
+                    onChange={onFormChange}
+                  />
                 </CCol>
               </CFormGroup>
               <CFormGroup row>
