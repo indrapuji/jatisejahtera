@@ -79,47 +79,47 @@ const DetailPeserta = () => {
         NewAlert({status: 'error', message: 'cabang dan golongan tidak boleh kosong'});
         return;
       }
-      // await axios({
-      //   method: 'POST',
-      //   url: `${HostUrl}/data/staff-record/${decrypt(idPeserta)}`,
-      //   data: {
-      //     tgl_lahir: edit.tgl_lahir,
-      //     no_ktp: edit.no_ktp,
-      //     no_bpjs: edit.no_bpjs,
-      //     nama_bank: edit.nama_bank,
-      //     no_rekening: edit.no_rekening,
-      //     satuan_kerja: region,
-      //     cabang: edit.cabang,
-      //     golongan_pangkat: edit.golongan_pangkat,
-      //     no_telp: edit.no_telp,
-      //     alamat: edit.alamat,
-      //     kelurahan: edit.kelurahan,
-      //     kecamatan: edit.kecamatan,
-      //     kota: edit.kota,
-      //     kodepos: edit.kodepos,
-      //     provinsi: edit.provinsi,
-      //     nama_pasangan: edit.nama_pasangan,
-      //     tgl_lahir_pasangan: edit.tgl_lahir_pasangan,
-      //     no_telp_pasangan: edit.no_telp_pasangan,
-      //     no_ktp_pasangan: edit.no_ktp_pasangan,
-      //     no_bpjs_pasangan: edit.no_bpjs_pasangan,
-      //     nama_bank_pasangan: edit.nama_bank_pasangan,
-      //     no_rekening_pasangan: edit.no_rekening_pasangan,
-      //     nama_anak: edit.nama_anak,
-      //     tgl_lahir_anak: edit.tgl_lahir_anak,
-      //     no_tlp_anak: edit.no_tlp_anak,
-      //     no_ktp_anak: edit.no_ktp_anak,
-      //     no_bpjs_anak: edit.no_bpjs_anak,
-      //     nama_bank_anak: edit.nama_bank_anak,
-      //     no_rekening_anak: edit.no_rekening_anak,
-      //   },
-      //   headers: {
-      //     token: localStorage.token,
-      //   },
-      // });
+      await axios({
+        method: 'POST',
+        url: `${HostUrl}/data/staff-record/${decrypt(idPeserta)}`,
+        data: {
+          tgl_lahir: edit.tgl_lahir,
+          no_ktp: edit.no_ktp,
+          no_bpjs: edit.no_bpjs,
+          nama_bank: edit.nama_bank,
+          no_rekening: edit.no_rekening,
+          satuan_kerja: region,
+          cabang: edit.cabang,
+          golongan_pangkat: edit.golongan_pangkat,
+          no_telp: edit.no_telp,
+          alamat: edit.alamat,
+          kelurahan: edit.kelurahan,
+          kecamatan: edit.kecamatan,
+          kota: edit.kota,
+          kodepos: edit.kodepos,
+          provinsi: edit.provinsi,
+          nama_pasangan: edit.nama_pasangan,
+          tgl_lahir_pasangan: edit.tgl_lahir_pasangan,
+          no_telp_pasangan: edit.no_telp_pasangan,
+          no_ktp_pasangan: edit.no_ktp_pasangan,
+          no_bpjs_pasangan: edit.no_bpjs_pasangan,
+          nama_bank_pasangan: edit.nama_bank_pasangan,
+          no_rekening_pasangan: edit.no_rekening_pasangan,
+          nama_anak: edit.nama_anak,
+          tgl_lahir_anak: edit.tgl_lahir_anak,
+          no_tlp_anak: edit.no_tlp_anak,
+          no_ktp_anak: edit.no_ktp_anak,
+          no_bpjs_anak: edit.no_bpjs_anak,
+          nama_bank_anak: edit.nama_bank_anak,
+          no_rekening_anak: edit.no_rekening_anak,
+        },
+        headers: {
+          token: localStorage.token,
+        },
+      });
       console.log(edit);
       NewAlert({status: 'success', message: `Update Data Berhasil`});
-      // history.push('/data');
+      history.push('/data');
     } catch (error) {
       const {msg} = error.response.data;
       NewAlert({status: 'error', message: msg});
