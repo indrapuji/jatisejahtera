@@ -25,7 +25,7 @@ import {decrypt} from 'src/utilities/RandomLink';
 const UploadLampiran = () => {
   const {claimId, userId, kategoriClaim} = useParams();
   const [formData, setFormData] = useState({
-    lampiran: '',
+    bukti_tf: '',
     nominal: 0,
     id: claimId,
     userId: userId,
@@ -48,8 +48,8 @@ const UploadLampiran = () => {
     try {
       e.preventDefault();
 
-      const {lampiran, nominal} = formData;
-      if (lampiran === '' || nominal === 0) {
+      const {bukti_tf, nominal} = formData;
+      if (bukti_tf === '' || nominal === 0) {
         newAlert({status: 'error', message: 'Sertakan Lampiran & nominal'});
         return;
       }
@@ -98,7 +98,7 @@ const UploadLampiran = () => {
                     </CLabel>
                   </CCol>
                   <CCol md='9'>
-                    <CInputFile size='sm' name='lampiran' onChange={onFormChange} />
+                    <CInputFile size='sm' name='bukti_tf' onChange={onFormChange} />
                   </CCol>
                 </CFormGroup>
                 <CFormGroup row>

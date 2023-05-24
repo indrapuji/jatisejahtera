@@ -10,7 +10,7 @@ const upload = multer({storage: storage});
 router.get('/single/:id', Authentication, ClaimControllers.getSingleClaim);
 router.get('/', Authentication, ClaimControllers.getAllClaim);
 
-router.post('/approve', Authentication, upload.single('lampiran'), ClaimControllers.approveClaim);
+router.post('/approve', Authentication, upload.single('bukti_tf'), ClaimControllers.approveClaim);
 router.post('/reject', Authentication, ClaimControllers.rejectClaim);
 
 router.post(

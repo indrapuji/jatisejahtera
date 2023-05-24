@@ -111,7 +111,7 @@ class ClaimDataControllers {
         nominal: nominal,
         sla: countSLA,
       };
-      if (req.file) queryData.lampiran = serverUrl + req.file.path;
+      if (req.file) queryData.bukti_tf = serverUrl + req.file.path;
 
       await Claim.update(queryData, {where: {id}});
       res.status(200).json({
