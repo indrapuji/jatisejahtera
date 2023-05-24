@@ -78,7 +78,7 @@ class UserControllers {
   };
   static userRegister = async (req, res, next) => {
     try {
-      const {name, nip, email, username, password, regional} = req.body;
+      const {name, nip, email, username, password, regional, role} = req.body;
       if (!name || !nip || !email || !username || !password) {
         throw createErrors(400, 'Input all require field');
       }
