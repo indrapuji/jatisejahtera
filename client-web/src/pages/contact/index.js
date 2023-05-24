@@ -134,7 +134,7 @@ function index() {
                 <h2 className='mt-4 text-base font-medium text-gray-800 dark:text-white'>
                   KANTOR PERWAKILAN YKP3.JS JAWA TIMUR
                 </h2>
-                <p className='mt-2 text-sm text-gray-500 dark:text-gray-400'>D/A WISMA PERHUTANI</p>
+                <p className='mt-2 text-sm text-gray-500 dark:text-gray-400'>D/A GRAHA PERHUTANI</p>
                 <p className='mt-2 text-sm text-blue-500 dark:text-blue-400'>
                   JL.GENTENG KALI NO. 49 SURABAYA 60008 TLP. 62.31 5343881
                 </p>

@@ -17,6 +17,7 @@ import {
 import CIcon from '@coreui/icons-react';
 import filesImg from 'src/assets/images/png-file.png';
 import filesSuccessImg from 'src/assets/images/png-file-success.png';
+import filesDangerImg from 'src/assets/images/png-file-danger.png';
 import axios from 'axios';
 import HostUrl from '../../../utilities/HostUrl';
 import {encrypt} from 'src/utilities/RandomLink';
@@ -634,20 +635,28 @@ const DetailPeserta = () => {
                             <div style={{textAlign: 'center', fontWeight: 'bold', fontSize: 8}}>Foto Selfie</div>
                           </div>
                         )}
-                        {item.lampiran && (
-                          <div style={{width: 100, height: 120, marginRight: 10, marginTop: 10, cursor: 'pointer'}}>
-                            <a href={item.lampiran} target='_blank' rel='noopener noreferrer'>
-                              <CImg src={filesSuccessImg} style={{width: 100, height: 100, objectFit: 'contain'}} />
-                            </a>
-                            <div style={{textAlign: 'center', fontWeight: 'bold', fontSize: 8}}>Lampiran</div>
-                          </div>
-                        )}
                         {item.all_in_one && (
                           <div style={{width: 100, height: 120, marginRight: 10, marginTop: 10, cursor: 'pointer'}}>
                             <a href={item.all_in_one} target='_blank' rel='noopener noreferrer'>
                               <CImg src={filesSuccessImg} style={{width: 100, height: 100, objectFit: 'contain'}} />
                             </a>
                             <div style={{textAlign: 'center', fontWeight: 'bold', fontSize: 8}}>all in one</div>
+                          </div>
+                        )}
+                        {item.lampiran && (
+                          <div style={{width: 100, height: 120, marginRight: 10, marginTop: 10, cursor: 'pointer'}}>
+                            <a href={item.lampiran} target='_blank' rel='noopener noreferrer'>
+                              <CImg src={filesDangerImg} style={{width: 100, height: 100, objectFit: 'contain'}} />
+                            </a>
+                            <div style={{textAlign: 'center', fontWeight: 'bold', fontSize: 8}}>Lampiran</div>
+                          </div>
+                        )}
+                        {item.bukti_tf && (
+                          <div style={{width: 100, height: 120, marginRight: 10, marginTop: 10, cursor: 'pointer'}}>
+                            <a href={item.bukti_tf} target='_blank' rel='noopener noreferrer'>
+                              <CImg src={filesDangerImg} style={{width: 100, height: 100, objectFit: 'contain'}} />
+                            </a>
+                            <div style={{textAlign: 'center', fontWeight: 'bold', fontSize: 8}}>Bukti Transfer</div>
                           </div>
                         )}
                       </div>

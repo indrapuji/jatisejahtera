@@ -16,7 +16,7 @@ function Perwakilan() {
     },
     {
       nama: 'KANTOR PERWAKILAN YKP3.JS JAWA TIMUR',
-      cabang: 'D/A KANTOR PERUM PERHUTANI',
+      cabang: 'D/A GRAHA PERHUTANI',
       alamat: 'JL.GENTENG KALI NO. 49 SURABAYA 60008',
       tlp: 'TLP. 62.31 5343881',
     },
