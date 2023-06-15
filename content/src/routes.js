@@ -1,52 +1,54 @@
-import React from 'react';
+import React from 'react'
 
-const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'));
+const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 
-const DataAdmin = React.lazy(() => import('./views/pages/admin/DataAdmin'));
-const DetailAdmin = React.lazy(() => import('./views/pages/admin/DetailAdmin'));
-const AddAdmin = React.lazy(() => import('./views/pages/admin/AddAdmin'));
-const AddPeserta = React.lazy(() => import('./views/pages/data/AddPeserta'));
+const DataAdmin = React.lazy(() => import('./views/pages/admin/DataAdmin'))
+const DetailAdmin = React.lazy(() => import('./views/pages/admin/DetailAdmin'))
+const AddAdmin = React.lazy(() => import('./views/pages/admin/AddAdmin'))
+const AddPeserta = React.lazy(() => import('./views/pages/data/AddPeserta'))
 
-const DataPeserta = React.lazy(() => import('./views/pages/data/DataPeserta'));
+const DataPeserta = React.lazy(() => import('./views/pages/data/DataPeserta'))
 
-const ChangePassword = React.lazy(() => import('./views/pages/setting/ChangePassword'));
+const ChangePassword = React.lazy(() => import('./views/pages/setting/ChangePassword'))
 
-const Claim = React.lazy(() => import('./views/pages/data/Claim'));
-const ClaimRequest = React.lazy(() => import('./views/pages/data/ClaimRequest'));
-const RequestClaim = React.lazy(() => import('./views/pages/data/RequestClaim'));
+const Claim = React.lazy(() => import('./views/pages/data/Claim'))
+const ClaimRequest = React.lazy(() => import('./views/pages/data/ClaimRequest'))
+const RequestClaim = React.lazy(() => import('./views/pages/data/RequestClaim'))
 
-const UploadLampiran = React.lazy(() => import('./views/pages/data/UploadLampiran'));
+const UploadLampiran = React.lazy(() => import('./views/pages/data/UploadLampiran'))
 
-const Approve = React.lazy(() => import('./views/pages/data/Approve'));
-const Reject = React.lazy(() => import('./views/pages/data/Reject'));
-const DetailPeserta = React.lazy(() => import('./views/pages/data/DetailPeserta'));
-const UpdatePeserta = React.lazy(() => import('./views/pages/data/UpdatePeserta'));
-const DetailPesertaClaim = React.lazy(() => import('./views/pages/data/DetailPesertaClaim'));
-const AddUpload = React.lazy(() => import('./views/pages/data/AddUpload'));
-const Pendidikan = React.lazy(() => import('./views/pages/pendidikan/Pendidikan'));
-const AddPendidikan = React.lazy(() => import('./views/pages/pendidikan/AddPendidikan'));
-const Perumahan = React.lazy(() => import('./views/pages/perumahan/Perumahan'));
-const AddPerumahan = React.lazy(() => import('./views/pages/perumahan/AddPerumahan'));
-const Kesehatan = React.lazy(() => import('./views/pages/kesehatan/Kesehatan'));
-const AddKesehatan = React.lazy(() => import('./views/pages/kesehatan/AddKesehatan'));
-const Berita = React.lazy(() => import('./views/pages/berita/Berita'));
-const AddBerita = React.lazy(() => import('./views/pages/berita/AddBerita'));
-const Galeri = React.lazy(() => import('./views/pages/galeri/Galeri'));
-const AddGaleri = React.lazy(() => import('./views/pages/galeri/AddGaleri'));
-const PrintTransfer = React.lazy(() => import('./views/pages/print/PrintTransfer'));
-const DataTransfer = React.lazy(() => import('./views/pages/print/DataTransfer'));
-const SingleTransfer = React.lazy(() => import('./views/pages/print/SingleTransfer'));
+const Approve = React.lazy(() => import('./views/pages/data/Approve'))
+const Reject = React.lazy(() => import('./views/pages/data/Reject'))
+const DetailPeserta = React.lazy(() => import('./views/pages/data/DetailPeserta'))
+const UpdatePeserta = React.lazy(() => import('./views/pages/data/UpdatePeserta'))
+const DetailPesertaClaim = React.lazy(() => import('./views/pages/data/DetailPesertaClaim'))
+const AddUpload = React.lazy(() => import('./views/pages/data/AddUpload'))
+const Pendidikan = React.lazy(() => import('./views/pages/pendidikan/Pendidikan'))
+const AddPendidikan = React.lazy(() => import('./views/pages/pendidikan/AddPendidikan'))
+const Perumahan = React.lazy(() => import('./views/pages/perumahan/Perumahan'))
+const AddPerumahan = React.lazy(() => import('./views/pages/perumahan/AddPerumahan'))
+const Kesehatan = React.lazy(() => import('./views/pages/kesehatan/Kesehatan'))
+const AddKesehatan = React.lazy(() => import('./views/pages/kesehatan/AddKesehatan'))
+const Berita = React.lazy(() => import('./views/pages/berita/Berita'))
+const AddBerita = React.lazy(() => import('./views/pages/berita/AddBerita'))
+const Galeri = React.lazy(() => import('./views/pages/galeri/Galeri'))
+const AddGaleri = React.lazy(() => import('./views/pages/galeri/AddGaleri'))
+const PrintTransfer = React.lazy(() => import('./views/pages/print/PrintTransfer'))
+const DataTransfer = React.lazy(() => import('./views/pages/print/DataTransfer'))
+const SingleTransfer = React.lazy(() => import('./views/pages/print/SingleTransfer'))
 
-const Banner = React.lazy(() => import('./views/pages/banner/Banner'));
-const AddBanner = React.lazy(() => import('./views/pages/banner/AddBanner'));
-const Testimoni = React.lazy(() => import('./views/pages/testimoni/Testimoni'));
-const AddTestimoni = React.lazy(() => import('./views/pages/testimoni/AddTestimoni'));
-const Carousel = React.lazy(() => import('./views/pages/carousel/Carousel'));
-const AddCarousel = React.lazy(() => import('./views/pages/carousel/AddCarousel'));
-const Struktur = React.lazy(() => import('./views/pages/struktur/Struktur'));
-const AddStruktur = React.lazy(() => import('./views/pages/struktur/AddStruktur'));
-const Pesan = React.lazy(() => import('./views/pages/pesan/Pesan'));
-const DetailPesan = React.lazy(() => import('./views/pages/pesan/DetailPesan'));
+const Banner = React.lazy(() => import('./views/pages/banner/Banner'))
+const AddBanner = React.lazy(() => import('./views/pages/banner/AddBanner'))
+const Testimoni = React.lazy(() => import('./views/pages/testimoni/Testimoni'))
+const AddTestimoni = React.lazy(() => import('./views/pages/testimoni/AddTestimoni'))
+const Carousel = React.lazy(() => import('./views/pages/carousel/Carousel'))
+const AddCarousel = React.lazy(() => import('./views/pages/carousel/AddCarousel'))
+const Struktur = React.lazy(() => import('./views/pages/struktur/Struktur'))
+const AddStruktur = React.lazy(() => import('./views/pages/struktur/AddStruktur'))
+const Pesan = React.lazy(() => import('./views/pages/pesan/Pesan'))
+const DetailPesan = React.lazy(() => import('./views/pages/pesan/DetailPesan'))
+
+const MessageBlast = React.lazy(() => import('./views/pages/MessageBlast'))
 
 const routes = [
   {path: '/', exact: true, name: 'Home'},
@@ -90,6 +92,7 @@ const routes = [
   {path: '/transfer', exact: true, name: 'Transfer', component: PrintTransfer},
   {path: '/transfer/data', exact: true, name: 'Data Transfer', component: DataTransfer},
   {path: '/transfer/:transferId', exact: true, name: 'Data Transfer', component: SingleTransfer},
-];
+  {path: '/message', exact: true, name: 'WhatsApp Blast', component: MessageBlast}
+]
 
-export default routes;
+export default routes
