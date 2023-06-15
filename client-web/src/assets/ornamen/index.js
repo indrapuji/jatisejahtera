@@ -1,3 +1,7 @@
-export {default as education} from './icons8-education.png';
-export {default as heart} from './icons8-heart.png';
-export {default as home} from './icons8-home.png';
+export {default as education} from './icons8-education.png'
+export {default as heart} from './icons8-heart.png'
+export {default as home} from './icons8-home.png'
+export {default as kesehatan} from './kesehatan.png'
+export {default as pendidikan} from './pendidikan.png'
+export {default as perumahan} from './perumahan.png'
+export {default as sosial} from './sosial.png'

@@ -1,60 +1,70 @@
-import React, {useEffect, useState} from 'react';
-import {motion} from 'framer-motion';
-import {useRouter} from 'next/router';
+import React, {useEffect, useState} from 'react'
+import {motion} from 'framer-motion'
+import {useRouter} from 'next/router'
+import Image from 'next/image'
+import {pendidikan, sosial, perumahan, kesehatan} from '@assets/ornamen'
 
 function Program({bkgClr}) {
-  const router = useRouter();
+  const router = useRouter()
 
-  const [bkg, setBkg] = useState();
+  const [bkg, setBkg] = useState()
 
   useEffect(() => {
     if (bkgClr) {
-      setBkg(`bg-${bkgClr}`);
+      setBkg(`bg-${bkgClr}`)
     } else {
-      setBkg('bg-emerald-600');
+      setBkg('bg-emerald-600')
     }
-  }, []);
+  }, [])
 
   const programData = [
     {
       id: 1,
       images: 'https://i.ibb.co/cFtn1T5/pendidikanasuransi.jpg',
+      logo: pendidikan,
       text: 'Pendidikan',
       linkTo: '/program/pendidikan',
+      color: 'bg-red-500'
     },
     {
       id: 2,
       images: 'https://i.ibb.co/029HZxw/sosialasuransi.jpg',
+      logo: sosial,
       text: 'Sosial',
       linkTo: '/program/sosial',
+      color: 'bg-purple-700'
     },
     {
       id: 3,
       images: 'https://i.ibb.co/v4Z5g3S/rumahasuransi.jpg',
+      logo: perumahan,
       text: 'Perumahan',
       linkTo: '/program/perumahan',
+      color: 'bg-sky-500'
     },
     {
       id: 4,
       images: 'https://i.ibb.co/gyYnqy6/kesehatanasuransi.jpg',
+      logo: kesehatan,
       text: 'Kesehatan',
       linkTo: '/program/kesehatan',
-    },
-  ];
+      color: 'bg-green-400'
+    }
+  ]
 
   const introVarian = {
     hide: {
       opacity: 0,
-      scale: 0.5,
+      scale: 0.5
     },
     show: {
       opacity: 1,
       transition: {
-        duration: 2,
+        duration: 2
       },
-      scale: 1,
-    },
-  };
+      scale: 1
+    }
+  }
 
   return (
     <div className={bkg}>
@@ -82,13 +92,21 @@ function Program({bkgClr}) {
                 onClick={() => router.push(item.linkTo)}
               >
                 <div
-                  className='w-full h-64 bg-gray-300 bg-center bg-cover rounded-lg shadow-md'
+                  className={`w-full h-64 bg-gray-300 bg-center ${item.color} rounded-lg shadow-md`}
                   style={{
-                    backgroundImage: `url(${item.images}`,
+                    color: item.color
                   }}
-                />
+                >
+                  <Image
+                    src={item.logo}
+                    className='w-50 h-50 text-deep-purple-accent-400 sm:w-50 sm:h-50'
+                    alt='realisasi'
+                    width={500}
+                    height={500}
+                  />
+                </div>
 
-                <div className='absolute w-50 top-10 bg-white border-2 rounded-lg drop-shadow-2xl md:w-60 dark:bg-gray-800 hidden md:block'>
+                <div className='absolute w-50 bottom-10 bg-white border-2 rounded-lg drop-shadow-2xl md:w-60 dark:bg-gray-800 hidden md:block'>
                   <h3 className='py-2 font-bold tracking-wide text-center text-gray-800 uppercase dark:text-white'>
                     {item.text}
                   </h3>
@@ -99,7 +117,7 @@ function Program({bkgClr}) {
         </div>
       </motion.div>
     </div>
-  );
+  )
 }
 
-export default Program;
+export default Program

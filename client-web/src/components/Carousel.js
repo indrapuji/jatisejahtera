@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {BsChevronCompactLeft, BsChevronCompactRight} from 'react-icons/bs';
-import {RxDot, RxDotFilled} from 'react-icons/rx';
-import axios from 'axios';
+import React, {useEffect, useState} from 'react'
+import {BsChevronCompactLeft, BsChevronCompactRight} from 'react-icons/bs'
+import {RxDot, RxDotFilled} from 'react-icons/rx'
+import axios from 'axios'
+import Link from 'next/link'
 
 function Carousel() {
   // const slides = [
@@ -11,44 +12,45 @@ function Carousel() {
   // ];
 
   useEffect(() => {
-    getCarousel();
-    console.log(process.env.API_URL);
-  }, []);
+    getCarousel()
+    console.log(process.env.API_URL)
+  }, [])
 
-  const [slides, setSlides] = useState([]);
+  const [slides, setSlides] = useState([])
 
-  const [currentIndex, setCurrentIndex] = useState(1);
+  const [currentIndex, setCurrentIndex] = useState(1)
 
   const getCarousel = async () => {
     try {
       const {data} = await axios({
         method: 'GET',
-        url: `${process.env.API_URL}/content?category=carousel&status=true`,
-      });
-      setSlides(data);
-      console.log(data);
+        url: `${process.env.API_URL}/content?category=carousel&status=true`
+      })
+      setSlides(data)
+      console.log(data)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   const prevSlide = () => {
-    const isFirstIndex = currentIndex === 0;
-    const newIndex = isFirstIndex ? slides.length - 1 : currentIndex - 1;
-    setCurrentIndex(newIndex);
-  };
+    const isFirstIndex = currentIndex === 0
+    const newIndex = isFirstIndex ? slides.length - 1 : currentIndex - 1
+    setCurrentIndex(newIndex)
+  }
 
   const nextSlide = () => {
-    const isLastIndex = currentIndex === slides.length - 1;
-    const newIndex = isLastIndex ? 0 : currentIndex + 1;
-    setCurrentIndex(newIndex);
-  };
+    const isLastIndex = currentIndex === slides.length - 1
+    const newIndex = isLastIndex ? 0 : currentIndex + 1
+    setCurrentIndex(newIndex)
+  }
 
   const goToSLide = (slideIndex) => {
-    setCurrentIndex(slideIndex);
-  };
+    setCurrentIndex(slideIndex)
+  }
   return (
     <div className='h-[780px] w-full m-auto relative group'>
+      {/* <Link href={slides.desc}> */}
       <div
         style={{backgroundImage: `url(${slides[currentIndex]?.image_url})`}}
         className='w-full h-full bg-center bg-cover duration-500'
@@ -66,8 +68,9 @@ function Carousel() {
           </div>
         ))}
       </div>
+      {/* </Link> */}
     </div>
-  );
+  )
 }
 
-export default Carousel;
+export default Carousel
