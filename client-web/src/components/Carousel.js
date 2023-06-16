@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react'
 import {BsChevronCompactLeft, BsChevronCompactRight} from 'react-icons/bs'
 import {RxDot, RxDotFilled} from 'react-icons/rx'
 import axios from 'axios'
-import Link from 'next/link'
 
 function Carousel() {
   // const slides = [
@@ -50,11 +49,12 @@ function Carousel() {
   }
   return (
     <div className='h-[780px] w-full m-auto relative group'>
-      {/* <Link href={slides.desc}> */}
-      <div
-        style={{backgroundImage: `url(${slides[currentIndex]?.image_url})`}}
-        className='w-full h-full bg-center bg-cover duration-500'
-      ></div>
+      <a href={slides[currentIndex]?.desc} target='_blank' rel='noopener noreferrer'>
+        <div
+          style={{backgroundImage: `url(${slides[currentIndex]?.image_url})`}}
+          className='w-full h-full bg-center bg-cover duration-500'
+        ></div>
+      </a>
       <div className='hidden group-hover:block absolute top-[45%] -translate-x-0 -translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer'>
         <BsChevronCompactLeft onClick={prevSlide} size={30} />
       </div>
@@ -68,7 +68,6 @@ function Carousel() {
           </div>
         ))}
       </div>
-      {/* </Link> */}
     </div>
   )
 }

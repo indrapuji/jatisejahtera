@@ -1,62 +1,63 @@
-import React, {useEffect, useState} from 'react';
-import {CCard, CCardBody, CCardHeader, CCol, CDataTable, CRow, CButton, CImg} from '@coreui/react';
-import axios from 'axios';
-import HostUrl from '../../../utilities/HostUrl';
-import newAlert from '../../../components/NewAlert';
-import Swal from 'sweetalert2';
+import React, {useEffect, useState} from 'react'
+import {CCard, CCardBody, CCardHeader, CCol, CDataTable, CRow, CButton, CImg} from '@coreui/react'
+import axios from 'axios'
+import HostUrl from '../../../utilities/HostUrl'
+import newAlert from '../../../components/NewAlert'
+import Swal from 'sweetalert2'
 
 const fields = [
   {key: 'title', label: 'Title', _style: {width: '50%'}},
-  {key: 'status', label: 'Status', _style: {width: '30%'}},
+  {key: 'externalLink', label: 'Link Url', _style: {width: '20%'}},
+  {key: 'status_publish', label: 'Status', _style: {width: '10%'}},
   {key: 'image', label: 'Image'},
   {key: 'change', label: '', _style: {width: '5%'}},
-  {key: 'action', label: '', _style: {width: '5%'}},
-];
+  {key: 'action', label: '', _style: {width: '5%'}}
+]
 
 const Carousel = () => {
-  const [dataBanner, setDataBanner] = useState([]);
+  const [dataBanner, setDataBanner] = useState([])
   useEffect(() => {
-    getBanner();
-  }, []);
+    getBanner()
+  }, [])
 
   const getBanner = async () => {
     try {
       const {data} = await axios({
         method: 'GET',
-        url: HostUrl + '/content?category=carousel',
-      });
-      setDataBanner(data);
-      console.log(data);
+        url: HostUrl + '/content?category=carousel'
+      })
+      setDataBanner(data)
+      console.log(data)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   const handleChange = async (idContent, statusContent) => {
-    console.log(idContent, statusContent);
+    console.log(idContent, statusContent)
     try {
       Swal.fire({
         title: 'Do you want to Change Status?',
         showDenyButton: true,
         confirmButtonText: 'Yes',
-        denyButtonText: `Don't Change`,
+        denyButtonText: `Don't Change`
       }).then((result) => {
         if (result.isConfirmed) {
           axios({
             method: 'PUT',
             url: HostUrl + '/content/single/' + idContent,
             data: {
-              status: !statusContent,
-            },
-          });
-          newAlert({status: 'success', message: 'Berhasil'});
-          getBanner();
+              status: !statusContent
+            }
+          })
+          newAlert({status: 'success', message: 'Berhasil'})
+          getBanner()
         }
-      });
+      })
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   const handleDelete = async (id) => {
     try {
@@ -64,21 +65,21 @@ const Carousel = () => {
         title: 'Do you want to Delete?',
         showDenyButton: true,
         confirmButtonText: 'Yes',
-        denyButtonText: `Don't Delete`,
+        denyButtonText: `Don't Delete`
       }).then((result) => {
         if (result.isConfirmed) {
           axios({
             method: 'DELETE',
-            url: HostUrl + '/content/' + id,
-          });
-          newAlert({status: 'success', message: 'Berhasil'});
-          getBanner();
+            url: HostUrl + '/content/' + id
+          })
+          newAlert({status: 'success', message: 'Berhasil'})
+          getBanner()
         }
-      });
+      })
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
   return (
     <>
       <CRow>
@@ -110,13 +111,13 @@ const Carousel = () => {
                           // shape="pill"
                           size='sm'
                           onClick={() => {
-                            handleChange(item.id, item.status);
+                            handleChange(item.id, item.status)
                           }}
                         >
                           Change
                         </CButton>
                       </td>
-                    );
+                    )
                   },
                   action: (item, index) => {
                     return (
@@ -127,20 +128,22 @@ const Carousel = () => {
                           // shape="pill"
                           size='sm'
                           onClick={() => {
-                            handleDelete(item.id);
+                            handleDelete(item.id)
                           }}
                         >
                           Delete
                         </CButton>
                       </td>
-                    );
+                    )
                   },
+                  status_publish: (item) => <td>{item.status ? 'Publish' : 'Unpublish'}</td>,
+                  externalLink: (item) => <td>{item.desc}</td>,
                   image: (item) => (
                     <td>
                       <CImg src={item.image_url} height={100} />
                       {item.status}
                     </td>
-                  ),
+                  )
                 }}
               />
             </CCardBody>
@@ -148,7 +151,7 @@ const Carousel = () => {
         </CCol>
       </CRow>
     </>
-  );
-};
+  )
+}
 
-export default Carousel;
+export default Carousel
