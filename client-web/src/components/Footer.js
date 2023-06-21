@@ -1,6 +1,6 @@
-import React from 'react';
-import Logo from '../assets/images/logo.png';
-import Image from 'next/image';
+import React from 'react'
+import Logo from '../assets/images/logo.png'
+import Image from 'next/image'
 
 const Footer = () => {
   return (
@@ -118,6 +118,31 @@ const Footer = () => {
                 </li>
               </ul>
             </div>
+            <div>
+              <p className='font-semibold tracking-wide text-white'>External Link</p>
+              <ul className='mt-2 space-y-2'>
+                <li>
+                  <a
+                    href='https://www.perhutani.co.id/'
+                    className='text-emerald-100 transition-colors duration-300 hover:text-deep-purple-accent-400'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    Perhutani
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href='https://www.dapenperhutani.com/'
+                    className='text-emerald-100 transition-colors duration-300 hover:text-deep-purple-accent-400'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    Dapen Perhutani
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
         <div className='flex flex-col justify-between pt-5 pb-10 border-t-2 border-white sm:flex-row'>
@@ -131,7 +156,7 @@ const Footer = () => {
         </svg>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer
