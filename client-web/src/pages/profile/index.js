@@ -1,30 +1,53 @@
-import React, {useEffect, useState} from 'react';
-import Navigation from '@components/Navigation';
-import Perwakilan from '@components/Perwakilan';
-import Footer from '../../components/Footer';
+import React, {useEffect, useState} from 'react'
+import Navigation from '@components/Navigation'
+import Perwakilan from '@components/Perwakilan'
+import Footer from '../../components/Footer'
+import {FaArrowLeft, FaArrowRight} from 'react-icons/fa'
 
-import Image from 'next/image';
-import Layout from '@components/Layout';
-import map from '@assets/images/map_ykp3js.png';
-import axios from 'axios';
+import Image from 'next/image'
+import Layout from '@components/Layout'
+import map from '@assets/images/map_ykp3js.png'
+import axios from 'axios'
+import comproPages from '@utilities/compro'
+import leaflet1 from '@assets/leaflet/leaflet1.jpg'
+import leaflet2 from '@assets/leaflet/leaflet2.jpg'
 
 export default () => {
-  const [dataPengurus, setDataPengurus] = useState([]);
+  const [dataPengurus, setDataPengurus] = useState([])
+  const [page, setPage] = useState(0)
+
   useEffect(() => {
-    getPengurus();
-  }, []);
+    getPengurus()
+  }, [])
   const getPengurus = async () => {
     try {
       const {data} = await axios({
         method: 'GET',
-        url: `${process.env.API_URL}/content?category=struktur&status=true`,
-      });
-      setDataPengurus(data[0].image_url);
-      console.log(data[0].image_url);
+        url: `${process.env.API_URL}/content?category=struktur&status=true`
+      })
+      setDataPengurus(data[0].image_url)
+      console.log(data[0].image_url)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
+
+  const next = () => {
+    if (page < 19) {
+      setPage(page + 1)
+    } else {
+      setPage(0)
+    }
+  }
+
+  const prev = () => {
+    if (page === 0) {
+      setPage(19)
+    } else {
+      setPage(page - 1)
+    }
+  }
+
   return (
     <Layout pageTitle={'PROFILE || JATISEJAHTERA'}>
       <Navigation />
@@ -64,8 +87,33 @@ export default () => {
           </div>
         </div>
         <Perwakilan />
+        <div className='mt-12 text-center text-4xl font-bold'>
+          <p>Company Profile</p>
+        </div>
+
+        <div className='mt-6 flex justify-center items-center'>
+          <div className='mr-6' onClick={() => prev()}>
+            <FaArrowLeft size='25' />
+          </div>
+          <Image src={comproPages[page].image} alt='pop up' width='450' height='450' priority={true} />
+          <div className='ml-6' onClick={() => next()}>
+            <FaArrowRight size='25' />
+          </div>
+        </div>
+        <div className='flex justify-center mt-2 mb-2'>
+          {comproPages.map((x) => (
+            <div className={`border-solid border-2 mx-1 w-2 border-green-${x.id === page + 1 ? '600' : '50'}`} />
+          ))}
+        </div>
+        <div className='mt-12 text-center text-4xl font-bold'>
+          <p>Leaflet</p>
+        </div>
+        <div className='my-6 flex justify-center items-center space-x-2'>
+          <Image src={leaflet1} alt='pop up' width='600' priority={true} />
+          <Image src={leaflet2} alt='pop up' width='600' priority={true} />
+        </div>
         <Footer />
       </div>
     </Layout>
-  );
-};
+  )
+}
