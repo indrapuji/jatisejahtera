@@ -1,29 +1,29 @@
-import React, {useEffect, useState} from 'react';
-import Navigation from '@components/Navigation';
-import Footer from '@components/Footer';
-import Image from 'next/image';
-import Layout from '@components/Layout';
-import axios from 'axios';
+import React, {useEffect, useState} from 'react'
+import Navigation from '@components/Navigation'
+import Footer from '@components/Footer'
+import Image from 'next/image'
+import Layout from '@components/Layout'
+import axios from 'axios'
 
 export default () => {
-  const [dataPerumahan, setDataPerumahan] = useState();
+  const [dataPerumahan, setDataPerumahan] = useState()
 
   useEffect(() => {
-    getDataPerumahan();
-  }, []);
+    getDataPerumahan()
+  }, [])
 
   const getDataPerumahan = async () => {
     try {
       const {data} = await axios({
         method: 'GET',
-        url: `${process.env.API_URL}/content?category=perumahan&status=true`,
-      });
-      console.log(data);
-      setDataPerumahan(data);
+        url: `${process.env.API_URL}/content?category=perumahan&status=true`
+      })
+      console.log(data)
+      setDataPerumahan(data)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
   return (
     <Layout pageTitle={'REALISASI PERUMAHAN || JATISEJAHTERA'}>
       <Navigation />
@@ -36,7 +36,7 @@ export default () => {
             {dataPerumahan &&
               dataPerumahan.map((item) => (
                 <div key={item.id} className='max-w-4xl my-6'>
-                  <Image src={item.image_url} width={700} height={1000} alt='pop up' />
+                  <Image src={item.image_url} width={1000} height={700} alt='pop up' />
                   <p className='font-bold px-2 py-8'>{item.title}</p>
                 </div>
               ))}
@@ -46,5 +46,5 @@ export default () => {
         <Footer />
       </div>
     </Layout>
-  );
-};
+  )
+}
