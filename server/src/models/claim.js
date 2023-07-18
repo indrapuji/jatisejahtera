@@ -1,5 +1,5 @@
-'use strict';
-const {Model} = require('sequelize');
+'use strict'
+const {Model} = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
   class Claim extends Model {
     /**
@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Claim.belongsTo(models.User, {foreignKey: 'userId'});
+      Claim.belongsTo(models.User, {foreignKey: 'userId'})
     }
   }
   Claim.init(
@@ -20,18 +20,18 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           isIn: {
             args: [['claim-kematian', 'claim-manfaat', 'claim-kesehatan', 'claim-kacamata']],
-            msg: 'Invalid Kategori',
-          },
-        },
+            msg: 'Invalid Kategori'
+          }
+        }
       },
       status: {
         type: DataTypes.STRING,
         validate: {
           isIn: {
-            args: [['created', 'approve', 'reject']],
-            msg: 'Invalid Status',
-          },
-        },
+            args: [['created', 'process', 'approve', 'reject']],
+            msg: 'Invalid Status'
+          }
+        }
       },
       permohonan_ahli_waris: DataTypes.STRING,
       keterangan_meninggal_dunia_lurah: DataTypes.STRING,
@@ -56,12 +56,12 @@ module.exports = (sequelize, DataTypes) => {
       created_date: DataTypes.DATE,
       updated_date: DataTypes.DATE,
       sla: DataTypes.INTEGER,
-      nominal: DataTypes.INTEGER,
+      nominal: DataTypes.INTEGER
     },
     {
       sequelize,
-      modelName: 'Claim',
-    },
-  );
-  return Claim;
-};
+      modelName: 'Claim'
+    }
+  )
+  return Claim
+}

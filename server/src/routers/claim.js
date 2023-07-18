@@ -1,17 +1,18 @@
-const router = require('express').Router();
-const ClaimControllers = require('../controllers/ClaimControllers');
-const Authentication = require('../middlewares/authentication');
-const Authorization = require('../middlewares/authorization');
-const multer = require('multer');
-const storage = require('../helpers/multer');
+const router = require('express').Router()
+const ClaimControllers = require('../controllers/ClaimControllers')
+const Authentication = require('../middlewares/authentication')
+const Authorization = require('../middlewares/authorization')
+const multer = require('multer')
+const storage = require('../helpers/multer')
 
-const upload = multer({storage: storage});
+const upload = multer({storage: storage})
 
-router.get('/single/:id', Authentication, ClaimControllers.getSingleClaim);
-router.get('/', Authentication, ClaimControllers.getAllClaim);
+router.get('/single/:id', Authentication, ClaimControllers.getSingleClaim)
+router.get('/', Authentication, ClaimControllers.getAllClaim)
 
-router.post('/approve', Authentication, upload.single('bukti_tf'), ClaimControllers.approveClaim);
-router.post('/reject', Authentication, ClaimControllers.rejectClaim);
+router.post('/process', Authentication, ClaimControllers.processClaim)
+router.post('/approve', Authentication, upload.single('bukti_tf'), ClaimControllers.approveClaim)
+router.post('/reject', Authentication, ClaimControllers.rejectClaim)
 
 router.post(
   '/kacamata/:username',
@@ -21,10 +22,10 @@ router.post(
     {name: 'fotokopi_kp', maxCount: 1},
     {name: 'fotokopi_sk_pensiun', maxCount: 1},
     {name: 'foto_selfie', maxCount: 1},
-    {name: 'all_in_one', maxCount: 1},
+    {name: 'all_in_one', maxCount: 1}
   ]),
-  ClaimControllers.createClaimKacamata,
-);
+  ClaimControllers.createClaimKacamata
+)
 
 router.post(
   '/manfaat/:username',
@@ -35,10 +36,10 @@ router.post(
     {name: 'fotokopi_kp', maxCount: 1},
     {name: 'fotokopi_sk_pensiun', maxCount: 1},
     {name: 'foto_selfie', maxCount: 1},
-    {name: 'all_in_one', maxCount: 1},
+    {name: 'all_in_one', maxCount: 1}
   ]),
-  ClaimControllers.createClaimManfaat,
-);
+  ClaimControllers.createClaimManfaat
+)
 
 router.post(
   '/kesehatan/:username',
@@ -50,10 +51,10 @@ router.post(
     {name: 'fotokopi_sk_pensiun', maxCount: 1},
     {name: 'fotokopi_kp', maxCount: 1},
     {name: 'foto_selfie', maxCount: 1},
-    {name: 'all_in_one', maxCount: 1},
+    {name: 'all_in_one', maxCount: 1}
   ]),
-  ClaimControllers.createClaimKesehatan,
-);
+  ClaimControllers.createClaimKesehatan
+)
 
 router.post(
   '/kematian/:username',
@@ -68,9 +69,9 @@ router.post(
     {name: 'fotokopi_sk_pensiun', maxCount: 1},
     {name: 'fotokopi_kp', maxCount: 1},
     {name: 'foto_selfie', maxCount: 1},
-    {name: 'all_in_one', maxCount: 1},
+    {name: 'all_in_one', maxCount: 1}
   ]),
-  ClaimControllers.createClaimKematian,
-);
+  ClaimControllers.createClaimKematian
+)
 
-module.exports = router;
+module.exports = router
