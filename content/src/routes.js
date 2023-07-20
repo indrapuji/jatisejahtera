@@ -13,6 +13,7 @@ const ChangePassword = React.lazy(() => import('./views/pages/setting/ChangePass
 
 const Claim = React.lazy(() => import('./views/pages/data/Claim'))
 const ClaimRequest = React.lazy(() => import('./views/pages/data/ClaimRequest'))
+const ClaimProcess = React.lazy(() => import('./views/pages/data/ClaimProcess'))
 const RequestClaim = React.lazy(() => import('./views/pages/data/RequestClaim'))
 
 const UploadLampiran = React.lazy(() => import('./views/pages/data/UploadLampiran'))
@@ -61,7 +62,8 @@ const routes = [
   {path: '/peserta/add/:nip', exact: true, name: 'Tambah Peserta', component: AddPeserta},
   {path: '/data', exact: true, name: 'Data Peserta', component: DataPeserta},
   {path: '/data/claim', exact: true, name: 'Pengajuan Peserta', component: Claim},
-  {path: '/data/claim-request', exact: true, name: 'Pengajuan Peserta', component: ClaimRequest},
+  {path: '/data/claim-request', exact: true, name: 'Pengajuan Claim', component: ClaimRequest},
+  {path: '/data/claim-process', exact: true, name: 'Proses Claim', component: ClaimProcess},
   {path: '/claim/:username', exact: true, name: 'Pengajuan Peserta', component: RequestClaim},
   {path: '/approve', exact: true, name: 'Approve', component: Approve},
   {path: '/approve/lampiran/:claimId/:userId/:kategoriClaim', exact: true, name: 'Lampiran', component: UploadLampiran},

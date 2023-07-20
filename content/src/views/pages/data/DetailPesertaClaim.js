@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {useParams, useHistory} from 'react-router-dom';
+import React, {useState, useEffect} from 'react'
+import {useParams, useHistory} from 'react-router-dom'
 import {
   CCard,
   CCardBody,
@@ -12,49 +12,71 @@ import {
   CLabel,
   CContainer,
   CFormGroup,
-  CImg,
-} from '@coreui/react';
-import CIcon from '@coreui/icons-react';
-import axios from 'axios';
-import HostUrl from '../../../utilities/HostUrl';
-import filesImg from '../../../assets/images/png-file.png';
-import filesSuccessImg from '../../../assets/images/png-file-success.png';
-import changeAttributes from 'src/utilities/ChangeAttributes';
-import {decrypt, encrypt} from 'src/utilities/RandomLink';
-import Swal from 'sweetalert2';
-import NewAlert from 'src/components/NewAlert';
+  CImg
+} from '@coreui/react'
+import CIcon from '@coreui/icons-react'
+import axios from 'axios'
+import HostUrl from '../../../utilities/HostUrl'
+import filesImg from '../../../assets/images/png-file.png'
+import filesSuccessImg from '../../../assets/images/png-file-success.png'
+import changeAttributes from 'src/utilities/ChangeAttributes'
+import {decrypt, encrypt} from 'src/utilities/RandomLink'
+import Swal from 'sweetalert2'
+import NewAlert from 'src/components/NewAlert'
 
 const DetailPeserta = () => {
-  const {idClaim} = useParams();
-  const history = useHistory();
-  const [peserta, setPeserta] = useState([]);
-  const [role, setRole] = useState('admin');
+  const {idClaim} = useParams()
+  const history = useHistory()
+  const [peserta, setPeserta] = useState([])
+  const [role, setRole] = useState('admin')
 
   useEffect(() => {
-    getDetail();
-    setRole(localStorage.role);
+    getDetail()
+    setRole(localStorage.role)
     // eslint-disable-next-line
-  }, [idClaim]);
+  }, [idClaim])
   const getDetail = async () => {
     try {
       const {data} = await axios({
         method: 'GET',
         url: `${HostUrl}/claim/single/${decrypt(idClaim)}`,
         headers: {
-          token: localStorage.token,
-        },
-      });
+          token: localStorage.token
+        }
+      })
 
-      console.log(changeAttributes(data));
-      setPeserta(changeAttributes(data));
+      console.log(changeAttributes(data))
+      setPeserta(changeAttributes(data))
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   const handleBack = () => {
-    history.goBack();
-  };
+    history.goBack()
+  }
+
+  const handleProcess = async (claimId, userId, kategoriClaim) => {
+    try {
+      await axios({
+        method: 'POST',
+        url: `${HostUrl}/claim/process`,
+        data: {
+          id: claimId,
+          userId: userId,
+          kategori: kategoriClaim
+        },
+        headers: {
+          token: localStorage.token
+        }
+      })
+      NewAlert({status: 'success', message: 'Claim Diproses'})
+      history.push('/data/claim-request')
+    } catch (error) {
+      const {msg} = error.response.data
+      NewAlert({status: 'error', message: msg})
+    }
+  }
 
   const handleReject = async (claimId, userId, kategoriClaim) => {
     await Swal.fire({
@@ -64,14 +86,14 @@ const DetailPeserta = () => {
         'Mengajukan 2 klaim disaat bersamaan': 'Mengajukan 2 klaim disaat bersamaan',
         'Lampiran tidak ada atau tidak lengkap': 'Lampiran tidak ada atau tidak lengkap',
         'Pernah mengajukan klaim sebelumnya': 'Pernah mengajukan klaim sebelumnya',
-        'Masa pertanggungan telah berakhir': 'Masa pertanggungan telah berakhir',
+        'Masa pertanggungan telah berakhir': 'Masa pertanggungan telah berakhir'
       },
       inputPlaceholder: 'Pilih Alasan',
       showCancelButton: true,
       inputValidator: (value) => {
         return new Promise((resolve) => {
           if (value) {
-            resolve();
+            resolve()
             try {
               axios({
                 method: 'POST',
@@ -80,25 +102,25 @@ const DetailPeserta = () => {
                   id: claimId,
                   userId: userId,
                   kategori: kategoriClaim,
-                  pesan: value,
+                  pesan: value
                 },
                 headers: {
-                  token: localStorage.token,
-                },
-              });
-              NewAlert({status: 'success', message: 'Claim Ditolak'});
-              history.push('/data/claim');
+                  token: localStorage.token
+                }
+              })
+              NewAlert({status: 'success', message: 'Claim Ditolak'})
+              history.push('/data/claim')
             } catch (error) {
-              console.log(error);
+              console.log(error)
             }
           }
-        });
-      },
-    });
-  };
+        })
+      }
+    })
+  }
   const handleApprove = (claimId, userId, kategoriClaim) => {
-    history.push(`/approve/lampiran/${claimId}/${userId}/${encrypt(kategoriClaim)}`);
-  };
+    history.push(`/approve/lampiran/${claimId}/${userId}/${encrypt(kategoriClaim)}`)
+  }
 
   return (
     <CContainer>
@@ -498,6 +520,18 @@ const DetailPeserta = () => {
                 {role === 'super-admin' && peserta.status === 'created' && (
                   <div>
                     <CButton
+                      style={{marginLeft: 10}}
+                      size='sm'
+                      color='success'
+                      onClick={() => handleProcess(peserta.id, peserta.userId, peserta.kategori)}
+                    >
+                      <CIcon name='cil-Check' /> Proses
+                    </CButton>
+                  </div>
+                )}
+                {role === 'super-admin' && peserta.status === 'process' && (
+                  <div>
+                    <CButton
                       size='sm'
                       color='danger'
                       onClick={() => handleReject(peserta.id, peserta.userId, peserta.kategori)}
@@ -520,7 +554,7 @@ const DetailPeserta = () => {
         </CCol>
       </CRow>
     </CContainer>
-  );
-};
+  )
+}
 
-export default DetailPeserta;
+export default DetailPeserta

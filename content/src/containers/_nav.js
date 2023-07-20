@@ -42,6 +42,11 @@ const _nav = [
       },
       {
         _tag: 'CSidebarNavItem',
+        name: 'Proses',
+        to: '/data/claim-process'
+      },
+      {
+        _tag: 'CSidebarNavItem',
         name: 'Approve',
         to: '/approve'
       },
@@ -52,12 +57,12 @@ const _nav = [
       }
     ]
   },
-  {
-    _tag: 'CSidebarNavItem',
-    name: 'Whatsapp',
-    to: '/message',
-    icon: <CIcon name='cil-star' customClasses='c-sidebar-nav-icon' />
-  },
+  // {
+  //   _tag: 'CSidebarNavItem',
+  //   name: 'Whatsapp',
+  //   to: '/message',
+  //   icon: <CIcon name='cil-star' customClasses='c-sidebar-nav-icon' />
+  // },
 
   {
     _tag: 'CSidebarNavTitle',
