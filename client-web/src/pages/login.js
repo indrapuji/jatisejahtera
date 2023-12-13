@@ -1,67 +1,101 @@
-import React, {useState} from 'react';
-import Layout from '@components/Layout';
-import Logo from '@assets/images/logo.png';
-import Image from 'next/image';
-import axios from 'axios';
-import newAlert from '@components/newAlert';
-import {useRouter} from 'next/router';
-import Swal from 'sweetalert2';
-import {encrypt} from '@utilities/RandomLink';
+import React, {useState} from 'react'
+import Layout from '@components/Layout'
+import Logo from '@assets/images/logo.png'
+import Image from 'next/image'
+import axios from 'axios'
+import newAlert from '@components/newAlert'
+import {useRouter} from 'next/router'
+import Swal from 'sweetalert2'
+import {encrypt} from '@utilities/RandomLink'
 
 function login() {
-  const router = useRouter();
+  const router = useRouter()
   const [formData, setFormData] = useState({
     username: '',
-    password: '',
-  });
+    password: ''
+  })
 
-  const [pass, setPass] = useState('password');
+  const [pass, setPass] = useState('password')
 
   const onFormChange = (event) => {
-    const {name, value} = event.target;
+    const {name, value} = event.target
     setFormData({
       ...formData,
-      [name]: value,
-    });
-  };
+      [name]: value
+    })
+  }
 
   const onFormSubmit = async (e) => {
     try {
-      e.preventDefault();
-      const {username, password} = formData;
+      e.preventDefault()
+      const {username, password} = formData
       if (!username || !password) {
-        newAlert({status: 'error', message: 'Isi semua form'});
-        return;
+        newAlert({status: 'error', message: 'Isi semua form'})
+        return
       }
       const {data} = await axios({
         method: 'POST',
         url: `${process.env.API_URL}/user/login`,
-        data: formData,
-      });
-      console.log(data);
+        data: formData
+      })
+      console.log(data)
       if (data.role === 'member') {
-        localStorage.setItem('token', data.accessToken);
-        localStorage.setItem('username', data.username);
-        localStorage.setItem('status', data.status);
-        newAlert({status: 'success', message: `Selamat datang ${data.name}`});
-        router.push('/');
+        localStorage.setItem('token', data.accessToken)
+        localStorage.setItem('username', data.username)
+        localStorage.setItem('status', data.status)
+        await getData()
+        // newAlert({status: 'success', message: `Selamat datang ${data.name}`})
+        // router.push('/')
       } else {
-        newAlert({status: 'error', message: `Anda tidak diizinkan untuk mengakses halaman ini`});
+        newAlert({status: 'error', message: `Anda tidak diizinkan untuk mengakses halaman ini`})
       }
-      console.log(data);
+      console.log(data)
     } catch (error) {
-      newAlert({status: 'error', message: error.response.data.msg});
-      console.log(error);
+      newAlert({status: 'error', message: error.response.data.msg})
+      console.log(error)
     }
-  };
+  }
+
+  const getData = async () => {
+    try {
+      const {data} = await axios({
+        method: 'GET',
+        url: `${process.env.API_URL}/user/profile`,
+        headers: {
+          token: localStorage.token
+        }
+      })
+      let claimFilter = data.Claims.filter((claim) => claim.status === 'approve')
+      console.log('==>', claimFilter)
+      if (claimFilter.length === 1) {
+        newAlert({
+          status: 'success',
+          message: `Selamat datang ${data.name} kamu sudah pernah mengajukan \n ${claimFilter[0].kategori}`
+        })
+      } else if (claimFilter.length === 2) {
+        newAlert({
+          status: 'success',
+          message: `Selamat datang ${data.name} kamu sudah pernah mengajukan \n ${claimFilter[0].kategori} & ${claimFilter[1].kategori}`
+        })
+      } else {
+        newAlert({
+          status: 'success',
+          message: `Selamat datang ${data.name} kamu sudah pernah mengajukan \n ${claimFilter[0].kategori}, ${claimFilter[1].kategori}& ${claimFilter[2].kategori}`
+        })
+      }
+      router.push('/')
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const setShow = () => {
     if (pass === 'password') {
-      setPass('text');
+      setPass('text')
     } else {
-      setPass('password');
+      setPass('password')
     }
-  };
+  }
 
   const checkUser = async (userNip) => {
     try {
@@ -69,22 +103,22 @@ function login() {
         method: 'POST',
         url: `${process.env.API_URL}/user/check-user`,
         data: {
-          nip: userNip,
-        },
-      });
+          nip: userNip
+        }
+      })
       if (data.msg === 'User already exist') {
-        newAlert({status: 'error', message: 'Kamu sudah terdaftar, silahkan login'});
+        newAlert({status: 'error', message: 'Kamu sudah terdaftar, silahkan login'})
       }
-      console.log(data);
+      console.log(data)
     } catch (error) {
-      const {msg} = error.response.data;
+      const {msg} = error.response.data
       if (msg === 'NIP not found') {
-        router.push(`/register/${encrypt(userNip)}`);
+        router.push(`/register/${encrypt(userNip)}`)
       } else {
-        newAlert({status: 'error', message: msg});
+        newAlert({status: 'error', message: msg})
       }
     }
-  };
+  }
 
   const handleAdd = async () => {
     try {
@@ -95,10 +129,10 @@ function login() {
         showCancelButton: true,
         inputValidator: (value) => {
           if (!value) {
-            return 'You need to write something!';
+            return 'You need to write something!'
           }
-        },
-      });
+        }
+      })
       const {data} = await axios({
         method: 'POST',
         url: `https://ws.ykp3js.org/cek`,
@@ -106,20 +140,20 @@ function login() {
           nip: dataNIP,
           tokenkey:
             'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyaWQiOiJZS1AzSlNXZWIiLCJ0aW1lc3RhbXAiOjE2NjIyNzM1MDB9.7W1lr29HTvAQDYR1FUIRG3mrsyGqTVAbQe9daDeUz8k',
-          act: 'klaim',
-        },
-      });
+          act: 'klaim'
+        }
+      })
 
       if (data.status === 200) {
         // router.push(`/register/${encrypt(dataNIP)}`);
-        await checkUser(dataNIP);
+        await checkUser(dataNIP)
       } else {
-        newAlert({status: 'error', message: 'NIP tidak terdaftar / NIP salah'});
+        newAlert({status: 'error', message: 'NIP tidak terdaftar / NIP salah'})
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   return (
     <Layout pageTitle={'LOGIN || JATISEJAHTERA'}>
@@ -128,7 +162,7 @@ function login() {
           <div
             className='hidden bg-cover lg:block lg:w-2/3'
             style={{
-              backgroundImage: `url(https://images.unsplash.com/photo-1616763355603-9755a640a287?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80)`,
+              backgroundImage: `url(https://images.unsplash.com/photo-1616763355603-9755a640a287?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80)`
             }}
           >
             <div className='flex items-center h-full px-20 bg-gray-900 bg-opacity-40'>
@@ -226,7 +260,7 @@ function login() {
         </div>
       </div>
     </Layout>
-  );
+  )
 }
 
-export default login;
+export default login
