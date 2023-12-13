@@ -19,6 +19,7 @@ import axios from 'axios'
 import HostUrl from '../../../utilities/HostUrl'
 import filesImg from '../../../assets/images/png-file.png'
 import filesSuccessImg from '../../../assets/images/png-file-success.png'
+import filesDangerImg from 'src/assets/images/png-file-danger.png'
 import changeAttributes from 'src/utilities/ChangeAttributes'
 import {decrypt, encrypt} from 'src/utilities/RandomLink'
 import Swal from 'sweetalert2'
@@ -484,6 +485,14 @@ const DetailPeserta = () => {
                           <div style={{textAlign: 'center', fontWeight: 'bold'}}>All in One</div>
                         </div>
                       )}
+                      {peserta.bukti_tf && (
+                        <div style={{width: 180, height: 230, marginRight: 10, marginTop: 10, cursor: 'pointer'}}>
+                          <a href={peserta.bukti_tf} target='_blank' rel='noopener noreferrer'>
+                            <CImg src={filesDangerImg} style={{width: 180, height: 180, objectFit: 'contain'}} />
+                          </a>
+                          <div style={{textAlign: 'center', fontWeight: 'bold'}}>Bukti Transfer</div>
+                        </div>
+                      )}
                     </div>
                   </CCol>
                 </CFormGroup>
@@ -502,6 +511,7 @@ const DetailPeserta = () => {
                     </CCol>
                   </CFormGroup>
                 )}
+
                 {peserta.pesan && (
                   <CFormGroup row>
                     <CCol md='3'>
