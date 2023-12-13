@@ -1,11 +1,12 @@
-import React from 'react';
-import {useRouter} from 'next/router';
-import axios from 'axios';
-import Swal from 'sweetalert2';
-import newAlert from './newAlert';
+import React from 'react'
+import {useRouter} from 'next/router'
+import axios from 'axios'
+import Swal from 'sweetalert2'
+import newAlert from './newAlert'
+import {encrypt} from '@utilities/RandomLink'
 
 function Claim() {
-  const router = useRouter();
+  const router = useRouter()
   const claimData = [
     {
       id: 1,
@@ -13,7 +14,7 @@ function Claim() {
       desc:
         'Santunan kematian dibayarkan kepada ahli waris,selambat-lambatnya 14 hari kerja setelah berkas pengajuan diterima dengan lengkap dan benar oleh Yayasan.',
       status: true,
-      linkTo: '/user/kematian',
+      linkTo: '/user/kematian'
     },
     {
       id: 2,
@@ -21,7 +22,7 @@ function Claim() {
       desc:
         'Manfaat Nilai Hidup dibayarkan kepada peserta,selambat-lambatnya 14 hari kerja setelah berkas pengajuan diterima dengan lengkap dan benar oleh Yayasan.',
       status: true,
-      linkTo: '/user/manfaat',
+      linkTo: '/user/manfaat'
     },
     {
       id: 3,
@@ -29,7 +30,7 @@ function Claim() {
       desc:
         'Penggantian Biaya Rawat Inap dibayarkan kepada peserta,selambat-lambatnya 14 hari kerja setelah berkas pengajuan diterima dengan lengkap dan benar oleh Yayasan.',
       status: true,
-      linkTo: '/user/kesehatan',
+      linkTo: '/user/kesehatan'
     },
     {
       id: 4,
@@ -37,9 +38,9 @@ function Claim() {
       desc:
         'Penggantian Pembelian Kacamata dibayarkan kepada peserta,selambat-lambatnya 14 hari kerja setelah berkas pengajuan diterima dengan lengkap dan benar oleh Yayasan.',
       status: true,
-      linkTo: '/user/kacamata',
-    },
-  ];
+      linkTo: '/user/kacamata'
+    }
+  ]
 
   const handleAdd = async () => {
     try {
@@ -50,10 +51,10 @@ function Claim() {
         showCancelButton: true,
         inputValidator: (value) => {
           if (!value) {
-            return 'You need to write something!';
+            return 'You need to write something!'
           }
-        },
-      });
+        }
+      })
       const {data} = await axios({
         method: 'POST',
         url: `https://ws.ykp3js.org/cek`,
@@ -61,19 +62,20 @@ function Claim() {
           nip: dataNIP,
           tokenkey:
             'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyaWQiOiJZS1AzSlNXZWIiLCJ0aW1lc3RhbXAiOjE2NjIyNzM1MDB9.7W1lr29HTvAQDYR1FUIRG3mrsyGqTVAbQe9daDeUz8k',
-          act: 'klaim',
-        },
-      });
+          act: 'klaim'
+        }
+      })
+      console.log(data)
 
       if (data.status === 200) {
-        history.push(`/peserta/add/${data.data.NIP}`);
+        router.push(`/register/${encrypt(data.data.NIP)}`)
       } else {
-        newAlert({status: 'error', message: 'NIP tidak terdaftar / NIP salah'});
+        newAlert({status: 'error', message: 'NIP tidak terdaftar / NIP salah'})
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   return (
     <div className='text-gray-600 body-font'>
@@ -137,7 +139,7 @@ function Claim() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Claim;
+export default Claim

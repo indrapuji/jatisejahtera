@@ -1,30 +1,32 @@
-import React from 'react';
-import formatDate from '@utilities/FormatDate';
+import React from 'react'
+import formatDate from '@utilities/FormatDate'
 
 function HistoriClaim({data}) {
-  console.log(data);
+  console.log(data)
 
   const claimCategory = (name) => {
     if (name === 'claim-kematian') {
-      return 'Santunan Kematian';
+      return 'Santunan Kematian'
     } else if (name === 'claim-manfaat') {
-      return 'Manfaat Nilai Hidup';
+      return 'Manfaat Nilai Hidup'
     } else if (name === 'claim-kesehatan') {
-      return 'Bantuan Rawat Inap';
+      return 'Bantuan Rawat Inap'
     } else {
-      return 'Bantuan Kacamata';
+      return 'Bantuan Kacamata'
     }
-  };
+  }
 
   const statusCLaim = (stat) => {
     if (stat === 'created') {
-      return 'Pengajuan';
+      return 'Pengajuan'
+    } else if (stat === 'process') {
+      return 'Proses'
     } else if (stat === 'approve') {
-      return 'Disetujui';
+      return 'Disetujui'
     } else {
-      return 'Ditolak';
+      return 'Ditolak'
     }
-  };
+  }
 
   return (
     <div className='overflow-x-auto col-span-2 w-full px-8 py-4 mt-10 bg-white rounded-lg shadow-md dark:bg-gray-800 lg:my-12 '>
@@ -116,7 +118,7 @@ function HistoriClaim({data}) {
         </div>
       )}
     </div>
-  );
+  )
 }
 
-export default HistoriClaim;
+export default HistoriClaim

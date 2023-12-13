@@ -1,6 +1,6 @@
 const getColumn = (newData) => {
-  let column = [];
-  let newKey = '';
+  let column = []
+  let newKey = ''
 
   for (let key in newData[0]) {
     if (
@@ -64,36 +64,36 @@ const getColumn = (newData) => {
       key !== 'no_rekening_anak'
     ) {
       if (key === 'name') {
-        newKey = 'NAMA PESERTA';
-        column.push({header: newKey, field: key});
+        newKey = 'NAMA PESERTA'
+        column.push({header: newKey, field: key})
       } else if (key === 'kategori') {
-        newKey = 'JENIS KLAIM';
-        column.push({header: newKey, field: key});
+        newKey = 'JENIS KLAIM'
+        column.push({header: newKey, field: key})
       } else if (key === 'cabang') {
-        newKey = 'KPH';
-        column.push({header: newKey, field: key});
+        newKey = 'KPH'
+        column.push({header: newKey, field: key})
       } else if (key === 'created_date') {
-        newKey = 'TANGGAL PENGAJUAN KLAIM';
-        column.push({header: newKey, field: key});
+        newKey = 'TANGGAL PENGAJUAN KLAIM'
+        column.push({header: newKey, field: key})
       } else if (key === 'updated_date') {
-        newKey = 'TANGGAL PENCAIRAN KLAIM';
-        column.push({header: newKey, field: key});
+        newKey = 'TANGGAL PERUBAHAN STATUS'
+        column.push({header: newKey, field: key})
       } else if (key === 'status') {
-        newKey = 'STATUS PENGAJUAN';
-        column.push({header: newKey, field: key});
+        newKey = 'STATUS PENGAJUAN'
+        column.push({header: newKey, field: key})
       } else if (key === 'nominal') {
-        newKey = 'JUMLAH PENCAIRAN';
-        column.push({header: newKey, field: key});
+        newKey = 'JUMLAH PENCAIRAN'
+        column.push({header: newKey, field: key})
       } else if (key === 'pesan') {
-        newKey = 'KETERANGAN';
-        column.push({header: newKey, field: key});
+        newKey = 'KETERANGAN'
+        column.push({header: newKey, field: key})
       } else {
-        column.push({header: key.toUpperCase().replace(/_/g, ' '), field: key});
+        column.push({header: key.toUpperCase().replace(/_/g, ' '), field: key})
       }
     }
   }
 
-  return column;
-};
+  return column
+}
 
-export default getColumn;
+export default getColumn

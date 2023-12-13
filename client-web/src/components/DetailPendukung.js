@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
-import InputComponent from './InputComponent';
-import formatDate from '@utilities/FormatDate';
-import {useRouter} from 'next/router';
+import React, {useState} from 'react'
+import InputComponent from './InputComponent'
+import formatDate from '@utilities/FormatDate'
+import {useRouter} from 'next/router'
 
 function DetailPendukung({dataPeserta, status}) {
-  const router = useRouter();
+  const router = useRouter()
   return (
     <div className='col-span-2 w-full px-8 py-4 mt-10 bg-white rounded-lg shadow-md dark:bg-gray-800 lg:my-12 '>
       {!status ? (
@@ -14,7 +14,7 @@ function DetailPendukung({dataPeserta, status}) {
           </h2>
 
           <p className='font-bold text-sky-500 cursor-pointer' onClick={() => router.push('/user/update')}>
-            Updata sekarang
+            Update data sekarang
           </p>
         </div>
       ) : (
@@ -94,7 +94,7 @@ function DetailPendukung({dataPeserta, status}) {
         </div>
       )}
     </div>
-  );
+  )
 }
 
-export default DetailPendukung;
+export default DetailPendukung

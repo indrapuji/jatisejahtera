@@ -1,26 +1,28 @@
-import React, {useState, useEffect} from 'react';
-import Layout from '@components/Layout';
-import Navigation from '@components/Navigation';
-import Footer from '@components/Footer';
-import newAlert from '@components/newAlert';
-import {useRouter} from 'next/router';
-import axios from 'axios';
-import activeButton from '@utilities/activeButton';
-import showButton from '@utilities/showButton';
+import React, {useState, useEffect} from 'react'
+import Layout from '@components/Layout'
+import Navigation from '@components/Navigation'
+import Footer from '@components/Footer'
+import newAlert from '@components/newAlert'
+import {useRouter} from 'next/router'
+import axios from 'axios'
+import activeButton from '@utilities/activeButton'
+import showButton from '@utilities/showButton'
 
 function Kesehatan() {
-  const router = useRouter();
+  const router = useRouter()
   useEffect(() => {
     if (!localStorage.token) {
-      newAlert({status: 'error', message: 'Anda belum login'});
-      router.push('/');
+      newAlert({status: 'error', message: 'Anda belum login'})
+      router.push('/')
     } else {
       if (localStorage.status === 'false') {
-        newAlert({status: 'error', message: 'Anda belum update data anda'});
-        router.push('/user/update');
+        newAlert({status: 'error', message: 'Anda belum update data anda'})
+        router.push('/user/update')
+      } else {
+        newAlert({status: 'info', message: 'Maksimal pertanggungan 15 tahun setelah pensiun'})
       }
     }
-  }, []);
+  }, [])
 
   const [formData, setFormData] = useState({
     surat_permohonan_bantuan_biaya: '',
@@ -29,91 +31,91 @@ function Kesehatan() {
     fotokopi_sk_pensiun: '',
     fotokopi_kp: '',
     foto_selfie: '',
-    all_in_one: '',
-  });
+    all_in_one: ''
+  })
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   const topBarKlaim = [
     {
       title: 'Kacamata',
       class: showButton.false,
-      click: () => router.push('/user/kacamata'),
+      click: () => router.push('/user/kacamata')
     },
     {
       title: 'Kematian',
       class: showButton.false,
-      click: () => router.push('/user/kematian'),
+      click: () => router.push('/user/kematian')
     },
     {
       title: 'Rawat Inap',
       class: showButton.true,
-      click: () => router.push('/user/kesehatan'),
+      click: () => router.push('/user/kesehatan')
     },
     {
       title: 'Nilai Hidup',
       class: showButton.false,
-      click: () => router.push('/user/manfaat'),
-    },
-  ];
+      click: () => router.push('/user/manfaat')
+    }
+  ]
 
   const sideBarText = [
     {
       title: 'Bantuan Kacamata',
       class: activeButton.false,
-      click: () => router.push('/user/kacamata'),
+      click: () => router.push('/user/kacamata')
     },
     {
       title: 'Santunan Kematian',
       class: activeButton.false,
-      click: () => router.push('/user/kematian'),
+      click: () => router.push('/user/kematian')
     },
     {
       title: 'Bantuan Rawat Inap',
       class: activeButton.true,
-      click: () => router.push('/user/kesehatan'),
+      click: () => router.push('/user/kesehatan')
     },
     {
       title: 'Manfaat Nilai Hidup',
       class: activeButton.false,
-      click: () => router.push('/user/manfaat'),
-    },
-  ];
+      click: () => router.push('/user/manfaat')
+    }
+  ]
 
   const onFormChange = (e) => {
-    e.preventDefault();
-    const {name, files} = e.target;
+    e.preventDefault()
+    const {name, files} = e.target
     setFormData({
       ...formData,
-      [name]: files[0],
-    });
-  };
+      [name]: files[0]
+    })
+  }
 
   const onFormSubmit = async (e) => {
     try {
-      e.preventDefault();
-      setLoading(true);
-      const newFormData = new FormData();
+      e.preventDefault()
+      setLoading(true)
+      const newFormData = new FormData()
       for (let keys in formData) {
-        newFormData.append(`${keys}`, formData[keys]);
+        newFormData.append(`${keys}`, formData[keys])
       }
       await axios({
         method: 'POST',
         url: `${process.env.API_URL}/claim/kesehatan/${localStorage.username}`,
         data: newFormData,
         headers: {
-          token: localStorage.token,
-        },
-      });
-      newAlert({status: 'success', message: 'Claim berhasil diajukan'});
-      router.push('/');
-      setLoading(false);
+          token: localStorage.token
+        }
+      })
+      newAlert({status: 'success', message: 'Claim berhasil diajukan'})
+      router.push('/')
+      setLoading(false)
     } catch (err) {
-      console.log(err);
-      newAlert({status: 'error', message: err.response.data.msg});
-      setLoading(false);
+      console.log(err)
+      newAlert({status: 'error', message: err.response.data.msg})
+      setLoading(false)
     }
-  };
+  }
   return (
     <Layout pageTitle={'KLAIM || JATISEJAHTERA'}>
       <Navigation />
@@ -258,7 +260,7 @@ function Kesehatan() {
       </div>
       <Footer />
     </Layout>
-  );
+  )
 }
 
-export default Kesehatan;
+export default Kesehatan

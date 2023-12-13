@@ -412,7 +412,7 @@ const DetailPeserta = () => {
                       )}
                       {peserta.fotokopi_ktp && (
                         <div style={{width: 180, height: 230, marginRight: 10, marginTop: 10, cursor: 'pointer'}}>
-                          <a href={peserta.lampiran} target='_blank' rel='noopener noreferrer'>
+                          <a href={peserta.fotokopi_ktp} target='_blank' rel='noopener noreferrer'>
                             <CImg src={filesImg} style={{width: 180, height: 180, objectFit: 'contain'}} />
                           </a>
                           <div style={{textAlign: 'center', fontWeight: 'bold'}}>KTP</div>

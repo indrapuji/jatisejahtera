@@ -1,15 +1,15 @@
-import React, {useState, useEffect} from 'react';
-import {useRouter} from 'next/router';
-import {decrypt} from '@utilities/RandomLink';
-import Layout from '@components/Layout';
-import Navigation from '@components/Navigation';
-import Footer from '@components/Footer';
-import axios from 'axios';
-import newAlert from '@components/newAlert';
+import React, {useState, useEffect} from 'react'
+import {useRouter} from 'next/router'
+import {decrypt} from '@utilities/RandomLink'
+import Layout from '@components/Layout'
+import Navigation from '@components/Navigation'
+import Footer from '@components/Footer'
+import axios from 'axios'
+import newAlert from '@components/newAlert'
 
 function Register() {
-  const router = useRouter();
-  const {id} = router.query;
+  const router = useRouter()
+  const {id} = router.query
 
   const [formData, setFormData] = useState({
     name: '',
@@ -17,14 +17,18 @@ function Register() {
     email: '',
     username: '',
     password: '',
-    regional: '',
-  });
+    regional: ''
+  })
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    getDataPeserta();
-  }, []);
+    getDataPeserta()
+  }, [])
+
+  useEffect(() => {
+    console.log(formData)
+  }, [formData])
 
   const getDataPeserta = async () => {
     try {
@@ -35,50 +39,51 @@ function Register() {
           nip: decrypt(id),
           tokenkey:
             'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyaWQiOiJZS1AzSlNXZWIiLCJ0aW1lc3RhbXAiOjE2NjIyNzM1MDB9.7W1lr29HTvAQDYR1FUIRG3mrsyGqTVAbQe9daDeUz8k',
-          act: 'klaim',
-        },
-      });
-      setFormData({...formData, name: data.data.Nama, nip: data.data.NIP});
-      console.log(data);
+          act: 'klaim'
+        }
+      })
+
+      setFormData({...formData, name: data.data.Nama, nip: data.data.NIP})
+      console.log(data.data)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   const onFormChange = (e) => {
-    e.preventDefault();
-    const {name, value} = event.target;
+    e.preventDefault()
+    const {name, value} = event.target
     setFormData({
       ...formData,
-      [name]: value,
-    });
-  };
+      [name]: value
+    })
+  }
 
   const onFormSubmit = async (e) => {
     try {
-      e.preventDefault();
-      console.log(formData);
-      setLoading(true);
-      const {name, nip, email, username, password, regional} = formData;
+      e.preventDefault()
+      console.log(formData)
+      setLoading(true)
+      const {name, nip, email, username, password, regional} = formData
       if (name === '' || nip === '' || email === '' || username === '' || password === '' || regional === '') {
-        newAlert({status: 'error', message: 'Isi Semua Form'});
-        return;
+        newAlert({status: 'error', message: 'Isi Semua Form'})
+        return
       }
       await axios({
         method: 'POST',
         url: process.env.API_URL + '/user/register',
-        data: formData,
-      });
-      setLoading(false);
-      newAlert({status: 'success', message: 'Berhasil'});
-      router.push('/');
+        data: formData
+      })
+      setLoading(false)
+      newAlert({status: 'success', message: 'Berhasil'})
+      router.push('/')
     } catch (error) {
-      console.log(error);
-      const {msg} = error.response.data;
-      newAlert({status: 'error', message: msg});
-      setLoading(false);
+      console.log(error)
+      const {msg} = error.response.data
+      newAlert({status: 'error', message: msg})
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <Layout pageTitle={'REGISTER || JATISEJAHTERA'}>
@@ -200,7 +205,7 @@ function Register() {
       </div>
       <Footer />
     </Layout>
-  );
+  )
 }
 
-export default Register;
+export default Register
