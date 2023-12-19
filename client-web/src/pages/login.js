@@ -49,7 +49,7 @@ function login() {
       } else {
         newAlert({status: 'error', message: `Anda tidak diizinkan untuk mengakses halaman ini`})
       }
-      console.log(data)
+      console.log('data', data)
     } catch (error) {
       newAlert({status: 'error', message: error.response.data.msg})
       console.log(error)
@@ -67,23 +67,26 @@ function login() {
       })
       let claimFilter = data.Claims.filter((claim) => claim.status === 'approve')
       console.log('==>', claimFilter)
-      if (claimFilter.length === 1) {
-        newAlert({
-          status: 'success',
-          message: `Selamat datang ${data.name} kamu sudah pernah mengajukan \n ${claimFilter[0].kategori}`
-        })
-      } else if (claimFilter.length === 2) {
-        newAlert({
-          status: 'success',
-          message: `Selamat datang ${data.name} kamu sudah pernah mengajukan \n ${claimFilter[0].kategori} & ${claimFilter[1].kategori}`
-        })
+      if (claimFilter.length > 0) {
+        if (claimFilter.length === 1) {
+          newAlert({
+            status: 'success',
+            message: `Selamat datang ${data.name} kamu sudah pernah mengajukan \n ${claimFilter[0].kategori}`
+          })
+        } else if (claimFilter.length === 2) {
+          newAlert({
+            status: 'success',
+            message: `Selamat datang ${data.name} kamu sudah pernah mengajukan \n ${claimFilter[0].kategori} & ${claimFilter[1].kategori}`
+          })
+        } else {
+          newAlert({
+            status: 'success',
+            message: `Selamat datang ${data.name} kamu sudah pernah mengajukan \n ${claimFilter[0].kategori}, ${claimFilter[1].kategori}& ${claimFilter[2].kategori}`
+          })
+        }
       } else {
-        newAlert({
-          status: 'success',
-          message: `Selamat datang ${data.name} kamu sudah pernah mengajukan \n ${claimFilter[0].kategori}, ${claimFilter[1].kategori}& ${claimFilter[2].kategori}`
-        })
+        router.push('/')
       }
-      router.push('/')
     } catch (error) {
       console.log(error)
     }
