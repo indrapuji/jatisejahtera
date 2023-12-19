@@ -73,16 +73,19 @@ function login() {
             status: 'success',
             message: `Selamat datang ${data.name} kamu sudah pernah mengajukan \n ${claimFilter[0].kategori}`
           })
+          router.push('/')
         } else if (claimFilter.length === 2) {
           newAlert({
             status: 'success',
             message: `Selamat datang ${data.name} kamu sudah pernah mengajukan \n ${claimFilter[0].kategori} & ${claimFilter[1].kategori}`
           })
+          router.push('/')
         } else {
           newAlert({
             status: 'success',
             message: `Selamat datang ${data.name} kamu sudah pernah mengajukan \n ${claimFilter[0].kategori}, ${claimFilter[1].kategori}& ${claimFilter[2].kategori}`
           })
+          router.push('/')
         }
       } else {
         router.push('/')
