@@ -1,22 +1,22 @@
-import React, {useState, useEffect} from 'react';
-import Layout from '@components/Layout';
-import Navigation from '@components/Navigation';
-import Footer from '@components/Footer';
-import newAlert from '@components/newAlert';
-import {useRouter} from 'next/router';
-import axios from 'axios';
-import InputComponent from '@components/InputComponent';
-import getAge from '@utilities/getAge';
-import JABAR from '@utilities/jabarSection';
-import KAPUS from '@utilities/kapusSection';
-import JATENG from '@utilities/jatengSection';
-import JATIM from '@utilities/jatimSection';
+import React, {useState, useEffect} from 'react'
+import Layout from '@components/Layout'
+import Navigation from '@components/Navigation'
+import Footer from '@components/Footer'
+import newAlert from '@components/newAlert'
+import {useRouter} from 'next/router'
+import axios from 'axios'
+import InputComponent from '@components/InputComponent'
+import getAge from '@utilities/getAge'
+import JABAR from '@utilities/jabarSection'
+import KAPUS from '@utilities/kapusSection'
+import JATENG from '@utilities/jatengSection'
+import JATIM from '@utilities/jatimSection'
 
 function Update() {
-  const router = useRouter();
+  const router = useRouter()
 
-  const [loading, setLoading] = useState(false);
-  const [profileData, setProfileData] = useState();
+  const [loading, setLoading] = useState(false)
+  const [profileData, setProfileData] = useState()
   const [formData, setFormData] = useState({
     tgl_lahir: '',
     no_ktp: '',
@@ -46,21 +46,21 @@ function Update() {
     no_ktp_anak: '',
     no_bpjs_anak: '',
     nama_bank_anak: '',
-    no_rekening_anak: '',
-  });
+    no_rekening_anak: ''
+  })
 
-  const [umurPeserta, setUmurPeserta] = useState('');
-  const [umurPasangan, setUmurPasangan] = useState('');
-  const [umurAnak, setUmurAnak] = useState('');
+  const [umurPeserta, setUmurPeserta] = useState('')
+  const [umurPasangan, setUmurPasangan] = useState('')
+  const [umurAnak, setUmurAnak] = useState('')
 
   useEffect(() => {
     if (!localStorage.token) {
-      newAlert({status: 'error', message: 'Anda belum login'});
-      router.push('/login');
+      newAlert({status: 'error', message: 'Anda belum login'})
+      router.push('/login')
     } else {
-      getProfile();
+      getProfile()
     }
-  }, []);
+  }, [])
 
   const getProfile = async () => {
     try {
@@ -68,68 +68,68 @@ function Update() {
         method: 'GET',
         url: `${process.env.API_URL}/user/profile`,
         headers: {
-          token: localStorage.token,
-        },
-      });
-      console.log(data);
-      setFormData({...formData, satuan_kerja: data.regional});
-      setProfileData(data);
+          token: localStorage.token
+        }
+      })
+      console.log(data)
+      setFormData({...formData, satuan_kerja: data.regional})
+      setProfileData(data)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   const onFormChange = (e) => {
-    e.preventDefault();
-    const {name, value} = e.target;
+    e.preventDefault()
+    const {name, value} = e.target
     if (name === 'tgl_lahir') {
       setFormData({
         ...formData,
-        [name]: value,
-      });
-      setUmurPeserta(getAge(value));
+        [name]: value
+      })
+      setUmurPeserta(getAge(value))
     } else if (name === 'tgl_lahir_pasangan') {
       setFormData({
         ...formData,
-        [name]: value,
-      });
-      setUmurPasangan(getAge(value));
+        [name]: value
+      })
+      setUmurPasangan(getAge(value))
     } else if (name === 'tgl_lahir_anak') {
       setFormData({
         ...formData,
-        [name]: value,
-      });
-      setUmurAnak(getAge(value));
+        [name]: value
+      })
+      setUmurAnak(getAge(value))
     } else {
       setFormData({
         ...formData,
-        [name]: value,
-      });
+        [name]: value
+      })
     }
-  };
+  }
 
   const onFormSubmit = async (e) => {
     try {
-      e.preventDefault();
-      setLoading(true);
+      e.preventDefault()
+      setLoading(true)
       await axios({
         method: 'POST',
         url: `${process.env.API_URL}/data/record`,
         data: formData,
         headers: {
-          token: localStorage.token,
-        },
-      });
-      newAlert({status: 'success', message: 'Update data berhasil'});
-      localStorage.setItem('status', 'true');
-      router.push('/user');
-      setLoading(false);
+          token: localStorage.token
+        }
+      })
+      newAlert({status: 'success', message: 'Update data berhasil'})
+      localStorage.setItem('status', 'true')
+      router.push('/user')
+      setLoading(false)
     } catch (err) {
-      console.log(err);
-      newAlert({status: 'error', message: err.response.data.msg});
-      setLoading(false);
+      console.log(err)
+      newAlert({status: 'error', message: err.response.data.msg})
+      setLoading(false)
     }
-  };
+  }
   return (
     <Layout pageTitle={'KLAIM || JATISEJAHTERA'}>
       <Navigation />
@@ -486,7 +486,7 @@ function Update() {
       </div>
       <Footer />
     </Layout>
-  );
+  )
 }
 
-export default Update;
+export default Update
