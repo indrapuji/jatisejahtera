@@ -14,6 +14,7 @@ import Modal from '@components/Modal';
 import Realisasi from '@components/Realisasi';
 import Galery from '@components/Galery';
 import UpdateNotif from '@components/UpdateNotif';
+import ErrorScreen from '@components/ErrorScreen';
 
 export default function Home() {
   const isBrowser = () => typeof window !== 'undefined';
@@ -57,7 +58,7 @@ export default function Home() {
 
   return (
     <Layout pageTitle={'HOME || JATISEJAHTERA'}>
-      <TopHeader />
+      {/* <TopHeader />
       <UpdateNotif />
       <Navigation />
       <Modal onShow={modalShow} onHide={() => setModalShow(false)} picture={bannerShow} />
@@ -69,7 +70,8 @@ export default function Home() {
       <Claim />
       <Realisasi hideHeader={false} />
       <Galery data={galeriData && galeriData.slice(0, 4)} showMore />
-      <Footer />
+      <Footer /> */}
+      <ErrorScreen/>
     </Layout>
   );
 }
