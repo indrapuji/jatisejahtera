@@ -16,7 +16,7 @@ function ErrorScreen() {
         <p class="text-3xl text-center">
           Would you like to{" "}
           <span class="text-3xl text-[#dc2626] text-center">
-            learn bout HTTP errors?
+            learn about HTTP errors?
           </span>
         </p>
       </div>
