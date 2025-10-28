@@ -17,7 +17,7 @@
     "username": "jatisejahtera",
     "password": "J4t1S3jahT3r4",
     "database": "jatisejahtera_production",
-    "host": "159.65.1.92",
+    "host": "206.189.145.169",
     "dialect": "postgres"
   }
 }
