@@ -7,7 +7,7 @@
 
 module.exports = {
   images: {
-    domains: ["jati.pasangbajaringan.id", "localhost"],
+    domains: ["jatisejahtera.indrapuji.com", "localhost"],
   },
   env: {
     API_URL: "https://jatisejahtera.indrapuji.com",
