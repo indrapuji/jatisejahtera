@@ -25,6 +25,7 @@ const Footer = () => {
                 JL. VILLA No. 1 GATOT SUBROTO Kav. 17-18 JAKARTA SELATAN 12930,
                 Telp / Fax : 021-5252983
               </p>
+              <p className="text-sm text-white">Whatsapp : 081211116746</p>
               <p className="mt-4 text-sm text-white">
                 E-mail : yayasanjatisejahtera@yahoo.co.id,
                 admin@jatisejahtera.or.id
